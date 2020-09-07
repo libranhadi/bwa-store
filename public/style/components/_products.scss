@@ -1,0 +1,46 @@
+.components-products {
+  margin-bottom: 20px;
+
+  &:hover {
+    text-decoration: none;
+  }
+
+  .product-thumbnail {
+    width: 100%;
+    height: 150px;
+    border-radius: 8px;
+    overflow: hidden; //jika transisi gambar tidak keluar
+    position: relative; //untuk menambahkan gambar di dalam div
+    z-index: 1; //untuk border radius tidak hilang
+
+    &:hover,
+    &:focus {
+      .product-image {
+        transform: scale(1.1);
+      }
+    }
+    .product-image {
+      width: 100%;
+      height: 100%; //karena posisi div relative maka akan terisi semmua di div
+      background-color: #dddddd;
+      background-position: center;
+      background-size: cover;
+      background-repeat: no-repeat;
+      transition: all 0.3s ease;
+    }
+  }
+  .product-text {
+    color: #0c0d36;
+    font-weight: normal;
+    font-size: 18px;
+    margin-top: 12px;
+  }
+  .product-price {
+    font-weight: 500;
+    font-size: 16px;
+
+    /* identical to box height */
+
+    color: #ff7158;
+  }
+}
