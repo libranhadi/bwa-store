@@ -18,4 +18,16 @@ class DashboardController extends Controller
     {
         return view("pages.dashboard-settings");
     }
+    public function account()
+    {
+        return view("pages.dashboard-account");
+    }
+    public function transaction()
+    {
+        return view("pages.dashboard-transaction");
+    }
+    public function detail()
+    {
+        return view("pages.dashboard-transaction-detail");
+    }
 }
