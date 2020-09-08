@@ -1,7 +1,57 @@
-@extends('layouts.app')
+@extends('layouts.auth')
 
 @section('content')
-<div class="container">
+
+    <!-- page-content -->
+    <div class="page-content page-auth">
+      <div class="section-store-auth" data-aos="zoom-in">
+        <div class="container">
+          <div class="row align-items-center row-login">
+            <div class="col-lg-6 text-center">
+              <img
+                src="/images/login-placeholder.png"
+                alt=""
+                class="w-50 mb-4 mb-lg-none"
+              />
+            </div>
+            <div class="col-lg-5">
+              <h2>
+                Belanja kebutuhan utama <br />
+                menjadi lebih mudah
+              </h2>
+              <form action="" class="mt-4">
+                <div class="form-group">
+                  <label for="email">E-mail Address</label>
+                  <input
+                    type="email"
+                    name="email"
+                    id="email"
+                    class="form-control w-75"
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="email">Password</label>
+                  <input
+                    type="password"
+                    name="password"
+                    id="password"
+                    class="form-control w-75"
+                  />
+                </div>
+                <a href="" class="btn btn-success w-75 mt-4 btn-block"
+                  >Sign In To My Account</a
+                >
+                <a href="" class="btn btn-signup w-75 mt-4 btn-block"
+                  >Sign Up</a
+                >
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+     
+    </div>
+<div class="container" style="display: none">
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">

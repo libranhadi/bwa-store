@@ -7,4 +7,6 @@
     AOS.init();
   </script>
   <script src="/vendor/vue/vue.js"></script>
+<script src="https://unpkg.com/vue-toasted"></script>
+
   <script src="/script/navbar-scroll.js"></script>

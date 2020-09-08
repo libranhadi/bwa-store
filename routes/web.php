@@ -26,3 +26,8 @@ Route::get('/details/id', 'DetailsController@index')->name('details');
 Route::get('/cart', 'CartController@index')->name('cart');
 Route::get('/success', 'CartController@success')->name('success');
 Route::get('/regses', 'Auth\RegisterController@success')->name('register-success');
+Route::group(['prefix' => 'dashboard'], function () {
+    Route::get('/mydashboard', 'DashboardController@index')->name('dashboard');
+    Route::get('/product', 'DashboardController@product')->name('dashboard-product');
+    Route::get('/settings', 'DashboardController@settings')->name('dashboard-settings');
+});
