@@ -35,7 +35,7 @@
                   <div class="col-12 mt-2">
                     <h5 class="mb-3">Recent Transaction</h5>
                     <a
-                      href="/dashboard-transaction-details"
+                      href="{{ route("dashboard-detail") }}"
                       class="card card-list d-block"
                     >
                       <div class="card-body">
@@ -59,7 +59,7 @@
                       </div>
                     </a>
                     <a
-                      href="/dashboard-transaction-details"
+                      href="{{ route("dashboard-detail") }}"
                       class="card card-list d-block"
                     >
                       <div class="card-body">
@@ -83,7 +83,7 @@
                       </div>
                     </a>
                     <a
-                      href="/dashboard-transaction-details"
+                      href="{{ route("dashboard-detail") }}"
                       class="card card-list d-block"
                     >
                       <div class="card-body">

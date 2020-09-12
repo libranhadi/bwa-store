@@ -27,10 +27,13 @@ Route::get('/cart', 'CartController@index')->name('cart');
 Route::get('/success', 'CartController@success')->name('success');
 Route::get('/regses', 'Auth\RegisterController@success')->name('register-success');
 Route::group(['prefix' => 'dashboard'], function () {
-    Route::get('/mydashboard', 'DashboardController@index')->name('dashboard');
+    Route::get('/', 'DashboardController@index')->name('dashboard');
     Route::get('/product', 'DashboardController@product')->name('dashboard-product');
+    Route::get('/product/id', 'DashboardController@show')->name('dashboard-product-detail');
+
     Route::get('/settings', 'DashboardController@settings')->name('dashboard-settings');
     Route::get('/account', 'DashboardController@account')->name('dashboard-account');
     Route::get('/transaction', 'DashboardController@transaction')->name('dashboard-transaction');
     Route::get('/transaction/id', 'DashboardController@detail')->name('dashboard-detail');
+    Route::get('create', 'DashboardController@create')->name('dashboard-create');
 });

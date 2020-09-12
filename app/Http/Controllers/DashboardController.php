@@ -30,4 +30,12 @@ class DashboardController extends Controller
     {
         return view("pages.dashboard-transaction-detail");
     }
+    public function create()
+    {
+        return view("pages.dashboard-create-product");
+    }
+    public function show()
+    {
+        return view("pages.dashboard-product-detail");
+    }
 }

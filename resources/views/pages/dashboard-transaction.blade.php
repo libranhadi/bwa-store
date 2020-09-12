@@ -48,7 +48,7 @@
                         aria-labelledby="pills-home-tab"
                       >
                         <a
-                          href="/dashboard-transaction-details"
+                          href="{{ route("dashboard-detail") }}"
                           class="card card-list d-block"
                         >
                           <div class="card-body">
@@ -72,7 +72,7 @@
                           </div>
                         </a>
                         <a
-                          href="/dashboard-transaction-details"
+                          href="{{ route("dashboard-detail") }}"
                           class="card card-list d-block"
                         >
                           <div class="card-body">
@@ -96,7 +96,7 @@
                           </div>
                         </a>
                         <a
-                          href="/dashboard-transaction-details"
+                          href="{{ route("dashboard-detail") }}"
                           class="card card-list d-block"
                         >
                           <div class="card-body">
@@ -129,7 +129,7 @@
                         aria-labelledby="pills-profile-tab"
                       >
                         <a
-                          href="/dashboard-transaction-details"
+                          href="{{ route("dashboard-detail") }}"
                           class="card card-list d-block"
                         >
                           <div class="card-body">

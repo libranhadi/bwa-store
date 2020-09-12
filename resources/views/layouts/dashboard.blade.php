@@ -29,27 +29,27 @@
           </div>
           <div class="list-group list-group-flush">
             <a
-              href="dashboard.html"
+              href="{{ route('dashboard') }}"
               class="list-group-item-action list-group-item active"
               >Dashboard</a
             >
             <a
-              href="product.html"
+              href="{{ route("dashboard-product") }}"
               class="list-group-item-action list-group-item"
               >My Product</a
             >
             <a
-              href="dashboard-transactions.html"
+              href="{{ route("dashboard-transaction")}}"
               class="list-group-item-action list-group-item"
               >Transactions</a
             >
             <a
-              href="settings.html"
+              href="{{ route("dashboard-settings") }}"
               class="list-group-item-action list-group-item"
               >Store Settings</a
             >
             <a
-              href="account.html"
+              href="{{ route("dashboard-account") }}"
               class="list-group-item-action list-group-item"
               >My account</a
             >
@@ -150,5 +150,9 @@
       $("#wrapper").toggleClass("toggled");
     });
   </script>  
+      <script src="https://cdn.ckeditor.com/4.14.1/standard/ckeditor.js"></script>
+    <script>
+      CKEDITOR.replace("editor");
+    </script>
   </body>
 </html>

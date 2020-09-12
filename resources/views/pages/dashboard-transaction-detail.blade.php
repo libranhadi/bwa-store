@@ -39,7 +39,7 @@
                                 <div class="product-subtitle">20-09-2020</div>
                               </div>
                               <div class="col-6 col-md-6">
-                                <div class="product-title">Status</div>
+                                <div class="product-title">Payment Status</div>
                                 <div class="product-subtitle text-danger">
                                   Pending
                                 </div>
@@ -105,7 +105,6 @@
                                 >
                                   <option value="PENDING">Pending</option>
                                   <option value="SHIPPING">Shipping</option>
-                                  <option value="UNPAID">Unpaid</option>
                                   <option value="SUCCESS">Success</option>
                                 </select>
                               </div>
