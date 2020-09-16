@@ -36,22 +36,22 @@
             <a
               href="{{ route("dashboard-product") }}"
               class="list-group-item-action list-group-item"
-              >My Product</a
+              >Product</a
             >
             <a
               href="{{ route("dashboard-transaction")}}"
               class="list-group-item-action list-group-item"
-              >Transactions</a
+              >Categories</a
             >
             <a
               href="{{ route("dashboard-settings") }}"
               class="list-group-item-action list-group-item"
-              >Store Settings</a
+              >Transaction</a
             >
             <a
               href="{{ route("dashboard-account") }}"
               class="list-group-item-action list-group-item"
-              >My account</a
+              >Users</a
             >
           </div>
         </div>
@@ -99,23 +99,20 @@
                     </a>
 
                     <div class="dropdown-menu">
-                      <a href="dashboard.html" class="dropdown-item"
-                        >Dashboard</a
-                      >
-                      <a href="" class="dropdown-item">Settings</a>
-                      <div class="dropdown-divider"></div>
+                     
+                 
                       <a href="/" class="dropdown-item">Logout</a>
                     </div>
                   </li>
-                
+                  
                 </ul>
 
                 <!-- navbar mobile -->
                 <ul class="navbar-nav d-block d-lg-none">
                   <li class="nav-item">
-                    <a href="#" class="nav-link"> Logout </a>
+                    <a href="#" class="nav-link d-inline-block ml-auto"> Logout </a>
                   </li>
-      
+                
                 </ul>
               </div>
             </div>

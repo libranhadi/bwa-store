@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\admin\DashboardController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -36,4 +37,8 @@ Route::group(['prefix' => 'dashboard'], function () {
     Route::get('/transaction', 'DashboardController@transaction')->name('dashboard-transaction');
     Route::get('/transaction/id', 'DashboardController@detail')->name('dashboard-detail');
     Route::get('create', 'DashboardController@create')->name('dashboard-create');
+});
+
+Route::prefix('admin')->namespace('Admin')->group(function () {
+    Route::get('dashboard', 'DashboardController@index')->name('admin-dashboard');
 });
