@@ -41,4 +41,5 @@ Route::group(['prefix' => 'dashboard'], function () {
 
 Route::prefix('admin')->namespace('Admin')->group(function () {
     Route::get('dashboard', 'DashboardController@index')->name('admin-dashboard');
+    Route::get('category', 'CategoryController@index');
 });

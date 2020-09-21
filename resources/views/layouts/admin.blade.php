@@ -14,6 +14,8 @@
 
 @stack('before-style')
 @include('includes.style')
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.22/datatables.min.css"/>
+
 @stack('after-style')    
 
   </head>
@@ -40,7 +42,7 @@
             >
             <a
               href="{{ route("dashboard-transaction")}}"
-              class="list-group-item-action list-group-item"
+              class="list-group-item-action list-group-item {{ (request()->is('admin/categories*')) ? 'active' : '' }} "
               >Categories</a
             >
             <a
@@ -133,6 +135,7 @@
 
     @stack('before-script')
     @include('includes.script')
+    <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.22/datatables.min.js"></script>
     @stack('after-script')
     <script>
     $("#menu-toggle").click(function (e) {
@@ -140,7 +143,8 @@
       $("#wrapper").toggleClass("toggled");
     });
   </script>  
-      <script src="https://cdn.ckeditor.com/4.14.1/standard/ckeditor.js"></script>
+     <script src="https://cdn.ckeditor.com/4.14.1/standard/ckeditor.js"></script>
+     
     <script>
       CKEDITOR.replace("editor");
     </script>
