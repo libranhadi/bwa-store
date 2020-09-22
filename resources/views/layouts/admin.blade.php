@@ -31,8 +31,8 @@
           </div>
           <div class="list-group list-group-flush">
             <a
-              href="{{ route('dashboard') }}"
-              class="list-group-item-action list-group-item active"
+              href="{{ route('admin-dashboard') }}"
+              class="list-group-item-action list-group-item"
               >Dashboard</a
             >
             <a
@@ -41,7 +41,7 @@
               >Product</a
             >
             <a
-              href="{{ route("dashboard-transaction")}}"
+              href="{{ route("admin-categories")}}"
               class="list-group-item-action list-group-item {{ (request()->is('admin/categories*')) ? 'active' : '' }} "
               >Categories</a
             >
@@ -134,19 +134,20 @@
     {{-- script --}}
 
     @stack('before-script')
-    @include('includes.script')
-    <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.22/datatables.min.js"></script>
-    @stack('after-script')
+  <script src="/vendor/jquery/jquery.min.js"></script>
+  <script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.22/datatables.min.js"></script>
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>
+    AOS.init();
+  </script>
     <script>
     $("#menu-toggle").click(function (e) {
       e.preventDefault();
       $("#wrapper").toggleClass("toggled");
     });
   </script>  
-     <script src="https://cdn.ckeditor.com/4.14.1/standard/ckeditor.js"></script>
-     
-    <script>
-      CKEDITOR.replace("editor");
-    </script>
+    @stack('after-script')
+  
   </body>
 </html>
