@@ -8,6 +8,7 @@ use App\Category;
 use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\Admin\CategoryRequest;
+use Illuminate\Support\Str;
 class CategoryController extends Controller
 {
     /**
@@ -28,10 +29,10 @@ class CategoryController extends Controller
                     Aksi
                     </button>
                   <div class="dropdown-menu">
-               <a href="' .route('category-edit', $item->id). '" class="dropdown-item">Sunting</a>
+               <a href="' .route('edit-categories', $item->slug). '" class="dropdown-item">Sunting</a>
             
-               <form action="'. route('category-destroy, $item->id') .'" method="post">
-             '.method_field('delete') . csrf_field() .'
+               <form action="'. route('category-destroy', $item->id) .'" method="post">
+             '.method_field('delete')  . csrf_field() .'
                             <button type="submit" class="dropdown-item text-danger">
                             Hapus
                             </button>
@@ -56,7 +57,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        //
+        return view('pages.admin.category.create', ['category' => new Category()]);
     }
 
     /**
@@ -67,7 +68,12 @@ class CategoryController extends Controller
      */
     public function store(CategoryRequest $request)
     {
-        //
+        $attr = $request->all();
+        $attr['slug'] = Str::slug(request('name'));
+        $photo = request()->file('photo')->store('assets/categories', 'public');
+        $attr['photo'] = $photo;
+        Category::create($attr);
+        return redirect()->route('admin-categories');
     }
 
     /**
@@ -78,7 +84,7 @@ class CategoryController extends Controller
      */
     public function show($id)
     {
-        //
+        
     }
 
     /**
@@ -87,9 +93,10 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Category $category)
     {
-        //
+        return view('pages.admin.category.edit', ['category' => $category]);
+        
     }
 
     /**
@@ -99,9 +106,20 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(CategoryRequest $request, $id)
+    public function update(CategoryRequest $request, Category $category)
     {
-        //
+        if(request()->file('photo'))
+        {
+        Storage::delete($category->photo);
+        $photo = request()->file('photo')->store('assets/categories' , 'public');
+        }else{
+            $photo = null;
+        }
+        $attr = $request->all();
+        $attr['photo'] = $photo;
+        $category->update($attr);
+
+        return redirect()->route('admin-categories');
     }
 
     /**
@@ -110,7 +128,7 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Category $category)
     {
         //
     }

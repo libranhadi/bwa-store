@@ -25,9 +25,10 @@
                                         <div class="card-body">
                                             <div class="row">
                                                 <div class="col-md-12">
-                                            <form action="{{ route('store-categories') }}" method="POST" enctype="multipart/form-data">
+                                            <form action="{{ route('update-categories') }}" method="POST" enctype="multipart/form-data">
                                                 @csrf
-                                                @include('pages.admin.category.form')
+                                                @method('PUT')
+                                                @include('pages.admin.category.form', ['submit'=> 'Update Now'])
                                             </form>
                                             </div>
                                                 </div>

@@ -14,7 +14,7 @@
                                 <div class="col-md-12">
                                     <div class="card">
                                         <div class="card-body">
-                                        <a href="" class="btn btn-primary mb-3">+ Tambah Kategori</a>
+                                        <a href="{{ route('create-categories') }}" class="btn btn-primary mb-3">+ Tambah Kategori</a>
                                             <div class="table table-responsive">
                                             <table class="table-hover scroll-horizontal-vertical w-100" id="crudTable">
                                                 <thead>
@@ -48,7 +48,7 @@
         serverSide : true,
         ordering : true,
         ajax: {
-            url: '{!! url()->current() !!}'
+            url: '{!! url()->current() !!}',
         },
         columns: [
             {data: 'id' , name: 'id'},
