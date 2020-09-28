@@ -21,7 +21,7 @@ class CategoryController extends Controller
        if(request()->ajax()){
            $query = Category::query();
            return Datatables::of($query)
-           ->addColumn('action', function($item){
+           ->addColumn('action', function($category){
                return ' 
                <div class="btn-group">
                 <div class="dropdown">
@@ -29,9 +29,9 @@ class CategoryController extends Controller
                     Aksi
                     </button>
                   <div class="dropdown-menu">
-               <a href="' .route('edit-categories', $item->slug). '" class="dropdown-item">Sunting</a>
+               <a href="' .route('edit-categories', $category->slug). '" class="dropdown-item">Sunting</a>
             
-               <form action="'. route('category-destroy', $item->id) .'" method="post">
+               <form action="'. route('category-destroy', $category->id) .'" method="post">
              '.method_field('delete')  . csrf_field() .'
                             <button type="submit" class="dropdown-item text-danger">
                             Hapus
@@ -42,8 +42,8 @@ class CategoryController extends Controller
                </div>   
                ';
            
-           })->editColumn('photo', function($item){
-               return $item->photo ? '<img src="'. Storage::url($item->photo).'" style="max-height : 40px;" />' : '';
+           })->editColumn('photo', function($category){
+               return $category->photo ? '<img src="'. Storage::url($category->photo).'" style="max-height : 40px;" />' : '';
 
            })->rawColumns(['action' , 'photo'])->make();
        }
@@ -95,6 +95,7 @@ class CategoryController extends Controller
      */
     public function edit(Category $category)
     {
+        
         return view('pages.admin.category.edit', ['category' => $category]);
         
     }
@@ -106,16 +107,13 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(CategoryRequest $request, Category $category)
+    public function update(CategoryRequest $request,Category $category)
     {
-        if(request()->file('photo'))
-        {
-        Storage::delete($category->photo);
-        $photo = request()->file('photo')->store('assets/categories' , 'public');
-        }else{
-            $photo = null;
-        }
+    
         $attr = $request->all();
+        $attr['slug'] = Str::slug(request('name'));
+        $photo = request()->file('photo')->store('assets/categories', 'public');
+
         $attr['photo'] = $photo;
         $category->update($attr);
 
