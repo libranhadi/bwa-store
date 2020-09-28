@@ -25,7 +25,7 @@
                                         <div class="card-body">
                                             <div class="row">
                                                 <div class="col-md-12">
-                                            <form action="{{ route('update-categories', $category->slug) }}" method="POST" enctype="multipart/form-data">
+                                            <form action="{{ route('update-categories', $item->id) }}" method="POST" enctype="multipart/form-data">
                                                 @method('PUT')
                                                 @csrf
                                                 @include('pages.admin.category.form', ['submit'=> 'Update Now'])

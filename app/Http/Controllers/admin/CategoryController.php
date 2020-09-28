@@ -29,7 +29,7 @@ class CategoryController extends Controller
                     Aksi
                     </button>
                   <div class="dropdown-menu">
-               <a href="' .route('edit-categories', $category->slug). '" class="dropdown-item">Sunting</a>
+               <a href="' .route('edit-categories', $category->id). '" class="dropdown-item">Sunting</a>
             
                <form action="'. route('category-destroy', $category->id) .'" method="post">
              '.method_field('delete')  . csrf_field() .'
@@ -68,8 +68,12 @@ class CategoryController extends Controller
      */
     public function store(CategoryRequest $request)
     {
+        $this->validate($request, [
+            'photo' => 'required|image|mimes:png,jpg,svg'
+        ]);
         $attr = $request->all();
         $attr['slug'] = Str::slug(request('name'));
+        
         $photo = request()->file('photo')->store('assets/categories', 'public');
         $attr['photo'] = $photo;
         Category::create($attr);
@@ -93,10 +97,10 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Category $category)
+    public function edit($id)
     {
-        
-        return view('pages.admin.category.edit', ['category' => $category]);
+        $item = Category::findOrFail($id);
+        return view('pages.admin.category.edit', ['item' => $item]);
         
     }
 
@@ -107,15 +111,26 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(CategoryRequest $request,Category $category)
+    public function update(CategoryRequest $request, $id)
     {
     
+        $this->validate($request,[
+        'photo'=> 'image'
+        ]);
         $attr = $request->all();
-        $attr['slug'] = Str::slug(request('name'));
-        $photo = request()->file('photo')->store('assets/categories', 'public');
-
+              
+        if (request()->file('photo')) {
+            $photo = request()->file('photo')->store('assets/categories', 'public');
+        } else {
+            $photo = null;
+        }
+        $attr['slug'] = Str::slug(request('name')); 
+      
         $attr['photo'] = $photo;
-        $category->update($attr);
+
+  
+        $item = Category::findOrFail($id);
+        $item->update($attr);
 
         return redirect()->route('admin-categories');
     }
@@ -126,8 +141,10 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Category $category)
+    public function destroy($id)
     {
-        //
+        $category = Category::findOrFail($id);
+        $category->delete();
+        return redirect()->route('admin-categories');
     }
 }

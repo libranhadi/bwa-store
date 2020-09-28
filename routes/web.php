@@ -43,10 +43,10 @@ Route::prefix('admin')->namespace('Admin')->group(function () {
     Route::get('dashboard', 'DashboardController@index')->name('admin-dashboard');
     Route::get('categories', 'CategoryController@index')->name('admin-categories');
     Route::get('create', 'CategoryController@create')->name('create-categories');
-    Route::get('edit/{category:slug})', 'CategoryController@edit')->name('edit-categories');
+    Route::get('edit/{id})', 'CategoryController@edit')->name('edit-categories');
     Route::post('store', 'CategoryController@store')->name('store-categories');
-    Route::put('update/{category:slug}', 'CategoryController@update')->name('update-categories');
-    Route::delete('destroy/id', 'CategoryController@destroy')->name('category-destroy');
+    Route::put('update/{id}', 'CategoryController@update')->name('update-categories');
+    Route::delete('destroy/{id}', 'CategoryController@destroy')->name('category-destroy');
 
 
 });
