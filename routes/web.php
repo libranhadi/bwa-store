@@ -42,11 +42,13 @@ Route::group(['prefix' => 'dashboard'], function () {
 Route::prefix('admin')->namespace('Admin')->group(function () {
     Route::get('dashboard', 'DashboardController@index')->name('admin-dashboard');
     Route::get('categories', 'CategoryController@index')->name('admin-categories');
+    Route::get('users', 'UserController@index')->name('admin-users');
     Route::get('create', 'CategoryController@create')->name('create-categories');
     Route::get('edit/{id})', 'CategoryController@edit')->name('edit-categories');
     Route::post('store', 'CategoryController@store')->name('store-categories');
     Route::put('update/{id}', 'CategoryController@update')->name('update-categories');
     Route::delete('destroy/{id}', 'CategoryController@destroy')->name('category-destroy');
-
+// users
+    Route::resource('user', 'UserController');
 
 });
