@@ -1,6 +1,6 @@
 <div class="form-group">
     <label for="Name">Name</label>
-    <input type="text" class="form-control" name="name" value="{{ old("name") ?? $item->name }}">
+    <input type="text" class="form-control" name="name" value="{{ old("name") ?? $category->name }}">
 </div>
 <div class="form-group">
     <label for="photo">Photo</label>

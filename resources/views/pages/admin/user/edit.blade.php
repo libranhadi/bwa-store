@@ -6,13 +6,13 @@
                     <div class="dashboard-heading">
 
                         <h2 class="dashboard-title">Tambah User</h2>
-                        <p class="dashboard-subtitle">This Add User</p>
+                        <p class="dashboard-subtitle">This Edit User</p>
                      </div>
 
                     <div class="dashboard-content">
                             <div class="row">
                                 <div class="col-md-12">
-                                    @if ($errors->any())
+                                  @if ($errors->any())
                                         <div class="alert alert-danger">
                                             <ul>
                                                 @foreach ($errors->all() as $error)
@@ -25,7 +25,8 @@
                                         <div class="card-body">
                                             <div class="row">
                                                 <div class="col-md-12">
-                                            <form action="{{ route('user.store') }}" method="POST" enctype="multipart/form-data">
+                                            <form action="{{ route('user.update' , $user->id) }}" method="POST" enctype="multipart/form-data">
+                                                @method('PUT')
                                                 @csrf
                                                 @include('pages.admin.user.form')
                                             </form>

@@ -57,7 +57,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        return view('pages.admin.category.create', ['category' => new Category()]);
+        return view('pages.admin.category.create', ['category' => new Category() ]);
     }
 
     /**
@@ -99,8 +99,8 @@ class CategoryController extends Controller
      */
     public function edit($id)
     {
-        $item = Category::findOrFail($id);
-        return view('pages.admin.category.edit', ['item' => $item]);
+        $category = Category::findOrFail($id);
+        return view('pages.admin.category.edit', ['category' => $category]);
         
     }
 

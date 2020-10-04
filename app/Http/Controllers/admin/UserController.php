@@ -29,9 +29,9 @@ class UserController extends Controller
                     Aksi
                     </button>
                   <div class="dropdown-menu">
-               <a href="' .route('edit-categories', $user->id). '" class="dropdown-item">Sunting</a>
+               <a href="' .route('user.edit', $user->id). '" class="dropdown-item">Sunting</a>
             
-               <form action="'. route('User-destroy', $user->id) .'" method="post">
+               <form action="'. route('user.destroy', $user->id) .'" method="post">
              '.method_field('delete')  . csrf_field() .'
                             <button type="submit" class="dropdown-item text-danger">
                             Hapus
@@ -71,7 +71,7 @@ class UserController extends Controller
         
         $attr['password'] = bcrypt($request->password);
         User::create($attr);
-        return redirect()->route('admin-categories');
+        return redirect()->route('user.index');
     }
 
     /**
@@ -93,8 +93,8 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        $item = User::findOrFail($id);
-        return view('pages.admin.User.edit', ['item' => $item]);
+        $user = User::findOrFail($id);
+        return view('pages.admin.user.edit', ['user' => $user]);
         
     }
 
@@ -108,25 +108,27 @@ class UserController extends Controller
     public function update(UserRequest $request, $id)
     {
     
-        $this->validate($request,[
-        'photo'=> 'image'
-        ]);
-        $attr = $request->all();
-              
-        if (request()->file('photo')) {
-            $photo = request()->file('photo')->store('assets/categories', 'public');
-        } else {
-            $photo = null;
-        }
-        $attr['slug'] = Str::slug(request('name')); 
-      
-        $attr['photo'] = $photo;
-
-  
+        
+         $attr = $request->all();
         $item = User::findOrFail($id);
-        $item->update($attr);
 
-        return redirect()->route('admin-categories');
+        if ($request->email) {
+            $attr['email'] = request('email');
+        } else {
+             $request->email;
+        }
+
+
+         if ($request->password) {
+                $attr['password'] = bcrypt($request->password);    
+        }else{
+            unset($attr['password']);
+        }
+  
+        $item->update($attr);
+       
+
+        return redirect()->route('user.index')->with(['success' => 'Pesan Berhasil']);
     }
 
     /**

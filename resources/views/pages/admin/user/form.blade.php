@@ -1,18 +1,24 @@
+
 <div class="form-group">
     <label for="Name">Name</label>
-    <input type="text" class="form-control" name="name" value="{{ old("name")  }}">
+    <input type="text" class="form-control" name="name" value="{{ old("name") ?? $user->name }}">
 </div>
+
 <div class="form-group">
     <label for="email">Email</label>
-    <input type="email" name="email" class="form-control" value="{{ old('email')}}">
-</div>
+    <input type="email" name="email" class="form-control" value="{{ old('email') ?? $user->email}}">
+</div>    
+
+
 <div class="form-group">
     <label for="password">Password</label>
-    <input type="password" name="password" class="form-control" value="{{ old('password')}}">
+    <input type="password" name="password" class="form-control">
+    <small>Jika tidak ingin di ganti kosongkan saja</small>
 </div>
+
 <div class="form-group">
     <label for="roles">Roles</label>
-    <select class=" form-control"name="roles" id="roles">
+    <select class=" form-control" name="roles" id="roles">
         <option value="ADMIN">ADMIN</option>
         <option value="USER">USER</option>
     </select>
