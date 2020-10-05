@@ -1,12 +1,12 @@
 
 <div class="form-group">
     <label for="Name">Name</label>
-    <input type="text" class="form-control" name="name" value="{{ old("name") ?? $user->name }}">
+    <input type="text" class="form-control" name="name" value="{{ old("name")}}">
 </div>
 
 <div class="form-group">
     <label for="email">Email</label>
-    <input type="email" name="email" class="form-control" value="{{ old('email') ?? $user->email}}">
+    <input type="email" name="email" class="form-control" value="{{ old('email')}}">
 </div>    
 
 

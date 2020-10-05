@@ -4,10 +4,11 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\User;
+use App\{Product , Category, User};
 use Yajra\DataTables\Facades\DataTables;
-use App\Http\Requests\Admin\UserRequest;
-class UserController extends Controller
+use App\Http\Requests\Admin\ProductRequest;
+use Illuminate\Support\Str;
+class ProductController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,9 +18,9 @@ class UserController extends Controller
     public function index()
     {
        if(request()->ajax()){
-           $query = User::query();
+           $query = Product::with('user' , 'category');
            return Datatables::of($query)
-           ->addColumn('action', function($user){
+           ->addColumn('action', function($product){
                return ' 
                <div class="btn-group">
                 <div class="dropdown">
@@ -27,9 +28,9 @@ class UserController extends Controller
                     Aksi
                     </button>
                   <div class="dropdown-menu">
-               <a href="' .route('user.edit', $user->id). '" class="dropdown-item">Sunting</a>
+               <a href="' .route('product.edit', $product->id). '" class="dropdown-item">Sunting</a>
             
-               <form action="'. route('user.destroy', $user->id) .'" method="post">
+               <form action="'. route('product.destroy', $product->id) .'" method="post">
              '.method_field('delete')  . csrf_field() .'
                             <button type="submit" class="dropdown-item text-danger">
                             Hapus
@@ -42,7 +43,7 @@ class UserController extends Controller
            
            })->rawColumns(['action' , 'photo'])->make();
        }
-        return view('pages.admin.user.index');
+        return view('pages.admin.product.index');
     }
 
     /**
@@ -52,7 +53,13 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('pages.admin.user.create', ['user' => new User()]);
+        return view('pages.admin.product.create', 
+        [
+            'product' => new Product(),
+            'user' => User::get(),
+            'category' => Category::get()
+            
+        ]);
     }
 
     /**
@@ -61,17 +68,14 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(UserRequest $request)
+    public function store(ProductRequest $request)
     {
-        $this->validate($request,[
-            'email' => 'required|email|unique:users',
-        ]);
+        
         $attr = $request->all();
+        $attr['slug'] = Str::slug($request->name);
         
-        
-        $attr['password'] = bcrypt($request->password);
-        User::create($attr);
-        return redirect()->route('user.index');
+        Product::create($attr);
+        return redirect()->route('product.index');
     }
 
     /**
@@ -93,8 +97,13 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        $user = User::findOrFail($id);
-        return view('pages.admin.user.edit', ['user' => $user]);
+        $product = Product::findOrFail($id);
+        return view('pages.admin.product.edit', 
+        [
+            'product' => $product,
+            'user' => User::get(),
+            'category' => Category::get()
+        ]);
         
     }
 
@@ -105,19 +114,28 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(UserRequest $request, $id)
+    public function update(ProductRequest $request, $id)
     {
     
-       
-         $attr = $request->all();
-        $item = User::findOrFail($id);
-         if ($request->password) {
-                $attr['password'] = bcrypt($request->password);    
-        }else{
-            unset($attr['password']);
+        $this->validate($request,[
+        'photo'=> 'image'
+        ]);
+        $attr = $request->all();
+              
+        if (request()->file('photo')) {
+            $photo = request()->file('photo')->store('assets/categories', 'public');
+        } else {
+            $photo = null;
         }
+        $attr['slug'] = Str::slug(request('name')); 
+      
+        $attr['photo'] = $photo;
+
+  
+        $item = Product::findOrFail($id);
         $item->update($attr);
-        return redirect()->route('user.index')->with(['success' => 'Pesan Berhasil']);
+
+        return redirect()->route('admin-categories');
     }
 
     /**
@@ -128,8 +146,8 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        $user = User::findOrFail($id);
-        $user->delete();
-        return redirect()->route('user.index');
+        $product = Product::findOrFail($id);
+        $product->delete();
+        return redirect()->route('admin-categories');
     }
 }

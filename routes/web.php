@@ -50,5 +50,5 @@ Route::prefix('admin')->namespace('Admin')->group(function () {
     Route::delete('destroy/{id}', 'CategoryController@destroy')->name('category-destroy');
 // users
     Route::resource('user', 'UserController');
-
+    Route::resource( 'product', 'ProductController');
 });
