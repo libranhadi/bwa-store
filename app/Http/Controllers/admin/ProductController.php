@@ -117,25 +117,13 @@ class ProductController extends Controller
     public function update(ProductRequest $request, $id)
     {
     
-        $this->validate($request,[
-        'photo'=> 'image'
-        ]);
-        $attr = $request->all();
-              
-        if (request()->file('photo')) {
-            $photo = request()->file('photo')->store('assets/categories', 'public');
-        } else {
-            $photo = null;
-        }
-        $attr['slug'] = Str::slug(request('name')); 
       
-        $attr['photo'] = $photo;
-
-  
+        $attr = $request->all();
+        $attr['slug'] = Str::slug(request('name')); 
         $item = Product::findOrFail($id);
         $item->update($attr);
 
-        return redirect()->route('admin-categories');
+        return redirect()->route('product.index');
     }
 
     /**
@@ -148,6 +136,6 @@ class ProductController extends Controller
     {
         $product = Product::findOrFail($id);
         $product->delete();
-        return redirect()->route('admin-categories');
+        return redirect()->route('product.index');
     }
 }

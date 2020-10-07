@@ -25,7 +25,7 @@
                                         <div class="card-body">
                                             <div class="row">
                                                 <div class="col-md-12">
-                                            <form action="{{ route('product-update', $item->id) }}" method="POST" enctype="multipart/form-data">
+                                            <form action="{{ route('product.update', $product->id) }}" method="POST" enctype="multipart/form-data">
                                                 @method('PUT')
                                                 @csrf
                                                 @include('pages.admin.product.form', ['submit'=> 'Update Now'])
@@ -40,3 +40,9 @@
         </div>
 
 @endsection
+@push('after-script')
+     <script src="https://cdn.ckeditor.com/4.14.1/standard/ckeditor.js"></script>
+    <script>
+      CKEDITOR.replace("editor");
+    </script>
+@endpush
