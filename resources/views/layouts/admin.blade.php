@@ -45,6 +45,11 @@
               class="list-group-item-action list-group-item {{ (request()->is('admin/categories*')) ? 'active' : '' }} "
               >Categories</a
             >
+             <a
+              href="{{ route("product-gallery.index") }}"
+              class="list-group-item-action list-group-item {{ (request()->is('admin/product-gallery*')) ? 'active' : ''}}"
+              >Product Gallery</a
+            >
             <a
               href="{{ route("dashboard-settings") }}"
               class="list-group-item-action list-group-item"

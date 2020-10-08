@@ -51,4 +51,6 @@ Route::prefix('admin')->namespace('Admin')->group(function () {
 // users
     Route::resource('user', 'UserController');
     Route::resource( 'product', 'ProductController');
+    Route::resource('product-gallery', 'ProductGalleryController');
+
 });

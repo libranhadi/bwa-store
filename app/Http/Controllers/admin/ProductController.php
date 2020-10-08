@@ -41,7 +41,7 @@ class ProductController extends Controller
                </div>   
                ';
            
-           })->rawColumns(['action' , 'photo'])->make();
+           })->rawColumns(['action'])->make();
        }
         return view('pages.admin.product.index');
     }
