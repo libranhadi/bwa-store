@@ -14,7 +14,7 @@
                                 <div class="col-md-12">
                                     <div class="card">
                                         <div class="card-body">
-                                        <a href="{{ route('product-gallery.create') }}" class="btn btn-primary mb-3">+ Tambah Kategori</a>
+                                        <a href="{{ route('gallery.create') }}" class="btn btn-primary mb-3">+ Tambah Kategori</a>
                                             <div class="table table-responsive">
                                             <table class="table-hover scroll-horizontal-vertical w-100" id="crudTable">
                                                 <thead>
@@ -53,7 +53,6 @@
             {data: 'id' , name: 'id'},
             {data: 'product.name' , name: 'product.name'},
             {data: 'photo' , name: 'photo'},
-
             {
                 data: 'action', 
                 name:'action',

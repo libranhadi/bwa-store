@@ -23,6 +23,8 @@ Route::get('/', function () {
 
 Route::get('/index', 'HomeController@index')->name('index');
 Route::get('/category', 'CategoryController@index')->name('category');
+Route::get('/categories', 'CategoryController@detail')->name('categories.detail');
+
 Route::get('/details/id', 'DetailsController@index')->name('details');
 Route::get('/cart', 'CartController@index')->name('cart');
 Route::get('/success', 'CartController@success')->name('success');
@@ -51,6 +53,6 @@ Route::prefix('admin')->namespace('Admin')->group(function () {
 // users
     Route::resource('user', 'UserController');
     Route::resource( 'product', 'ProductController');
-    Route::resource('product-gallery', 'ProductGalleryController');
+    Route::resource('gallery', 'ProductGalleryController');
 
 });

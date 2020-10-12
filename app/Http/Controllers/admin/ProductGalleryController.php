@@ -27,7 +27,7 @@ class ProductGalleryController extends Controller
                     </button>
                   <div class="dropdown-menu">
               
-               <form action="'. route('product.destroy', $productgallery->id) .'" method="post">
+               <form action="'. route('gallery.destroy', $productgallery->id) .'" method="post">
              '.method_field('delete')  . csrf_field() .'
                             <button type="submit" class="dropdown-item text-danger">
                             Hapus
@@ -38,7 +38,7 @@ class ProductGalleryController extends Controller
                </div>   
                ';
            
-           })->editColumns('photo', function ($productgallery){
+           })->editColumn('photo', function ($productgallery){
             return $productgallery->photo ? '<img src="'. Storage::url($productgallery->photo).'"style="max-height : 80px;" />' : '' ;
            })->
            rawColumns(['action' , 'photo'])->make();
@@ -59,10 +59,12 @@ class ProductGalleryController extends Controller
 
         ProductGallery::create($attr);
 
-        return redirect()->route('product-gallery.index');
+        return redirect()->route('gallery.index');
 
     }
-    public function destroy(){
-
+    public function destroy($id){
+        $attr = ProductGallery::findOrFail($id);
+        $attr->delete();
+        return redirect()->route('gallery.index');
     }
 }
