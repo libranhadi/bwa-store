@@ -93,28 +93,44 @@
             </div>
           </div>
          <div class="row">
+          @php
+              $incrementproduct = 0
+          @endphp 
+          @forelse ($products as $product)
+               
+     
             <div
               class="col-6 col-md-4 col-lg-3"
               data-aos="fade-up"
-              data-aos-delay="100"
+              data-aos-delay="{{ $incrementproduct+= 100 }}"
             >
               <a href="details.html" class="components-products d-block">
                 <div class="product-thumbnail">
                   <div
                     class="product-image"
                     style="
-                      background-image: url('/images/products-apple-watch.jpg');
+                    @if($product->galleries)
+                      background-image: url('{{ Storage::url($product->galleries->first()->photo) }}')
+                      @else
+                      background-color : #eee
+                      @endif
                     "
                   ></div>
                 </div>
                 <div class="product-text">
-                  Apple Watch 4
+                  {{ $product->name }}
                 </div>
                 <div class="product-price">
-                  $900
+                  
+                  {{ $product->price }}
                 </div>
               </a>
             </div>
+            @empty
+                <div class="col-12 text-center py-5">
+                  Kosong
+                </div>
+            @endforelse
          </div>
         </div>
       </section>

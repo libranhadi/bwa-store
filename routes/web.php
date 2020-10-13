@@ -23,7 +23,7 @@ Route::get('/', function () {
 
 Route::get('/index', 'HomeController@index')->name('index');
 Route::get('/category', 'CategoryController@index')->name('category');
-Route::get('/categories', 'CategoryController@detail')->name('categories.detail');
+Route::get('/categories/{id}', 'CategoryController@show')->name('categories.detail');
 
 Route::get('/details/id', 'DetailsController@index')->name('details');
 Route::get('/cart', 'CartController@index')->name('cart');

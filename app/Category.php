@@ -12,4 +12,8 @@ class Category extends Model
     protected $fillable = ['id', 'name', 'photo', 'slug'];
 
     protected $hidden = [];
+
+    public function products(){
+        return $this->hasMany(Product::class, 'id');
+    }
 }

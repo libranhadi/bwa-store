@@ -16,7 +16,7 @@ class ProductGalleryController extends Controller
     public function index()  
     {
        if(request()->ajax()){
-           $query = ProductGallery::with('product');
+           $query = ProductGallery::with(['product']);
            return Datatables::of($query)
            ->addColumn('action', function($productgallery){
                return ' 
