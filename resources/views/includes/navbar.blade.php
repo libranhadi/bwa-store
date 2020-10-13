@@ -29,7 +29,7 @@
               <a class="nav-link" href="#">Sign up</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link btn btn-success px-4 text-white" href="#"
+              <a class="nav-link btn btn-success px-4 text-white" href="{{ route('login') }}"
                 >Sign In</a
               >
             </li>

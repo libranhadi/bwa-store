@@ -19,30 +19,48 @@
                 Belanja kebutuhan utama <br />
                 menjadi lebih mudah
               </h2>
-              <form action="" class="mt-4">
+                <form method="POST" action="{{ route('login') }}" class="mt-4">
+                        @csrf
                 <div class="form-group">
-                  <label for="email">E-mail Address</label>
+                  <label for="email">{{ __('E-Mail Address') }}</label>
                   <input
                     type="email"
                     name="email"
                     id="email"
-                    class="form-control w-75"
+                    class="form-control w-75
+                    @error('email') is-invalid @enderror"
+                    value="{{ old('email') }}"
+                    required
+                    autocomplete="email"
+                    autofocus
                   />
+                  
+                                @error('email')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
                 </div>
                 <div class="form-group">
-                  <label for="email">Password</label>
+                  <label for="password">{{ __('Password') }}</label>
                   <input
                     type="password"
                     name="password"
                     id="password"
-                    class="form-control w-75"
+                    class="form-control w-75  @error('password') is-invalid @enderror"
+                    
                   />
+                    @error('password')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
                 </div>
-                <a href="" class="btn btn-success w-75 mt-4 btn-block"
-                  >Sign In To My Account</a
+                <button class="btn btn-success w-75 mt-4 btn-block" type="submit"
+                  >Sign In To My Account</button
                 >
-                <a href="" class="btn btn-signup w-75 mt-4 btn-block"
-                  >Sign Up</a
+                <button href="" class="btn btn-signup w-75 mt-4 btn-block"
+                  >Sign Up</button
                 >
               </form>
             </div>

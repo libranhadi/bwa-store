@@ -21,7 +21,7 @@ Route::get('/', function () {
 });
 
 
-Route::get('/index', 'HomeController@index')->name('index');
+Route::get('/home', 'HomeController@index')->name('index');
 Route::get('/category', 'CategoryController@index')->name('category');
 Route::get('/categories/{id}', 'CategoryController@show')->name('categories.detail');
 
