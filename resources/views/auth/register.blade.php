@@ -37,6 +37,8 @@
                     type="email"
                     name="email"
                     id="email"
+                    @change = "checkEmail()"
+                    :class="{'is-invalid' : this.email_unavailable}"
                     class="form-control @error('email')
                         is-invalid
                     @enderror"
@@ -142,6 +144,7 @@
                   </select>
                 </div>
                 <button type="submit" class="btn btn-success mt-4 btn-block"
+                :disabled="this.email_unavailable"
                   >Sign Up Now
                 </button>
                 <a href="{{ route('login') }}" class="btn btn-signup mt-4 btn-block"
@@ -230,24 +233,56 @@
 @endsection
 
 @push('after-script')
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
       <script>
       Vue.use(Toasted);
       var register = new Vue({
         el: "#register",
         mounted() {
           AOS.init();
-          // this.$toasted.error("Maaf Email Anda Sudah Terdaftar!", {
-          //   position: "top-center",
-          //   className: "rounded",
-          //   duration: 1000,
-          // });
+        
         },
-        data: {
+        methods : {
+          checkEmail: function(){
+            var self = this;
+            axios.get('{{ route('api-register-check') }}', {
+                  params : {
+                  email: this.email
+                  }
+           })
+        .then(function (response) {
+          if (response.data == 'available') {
+              self.$toasted.show("Email Anda Sudah Siap!", {
+                  position: "top-center",
+                  className: "rounded",
+                  duration: 1000,
+                })
+                self.email_unavailable = false;
+          } 
+          else{
+                 self.$toasted.error("Maaf Email Anda Sudah Terdaftar!", {
+                  position: "top-center",
+                  className: "rounded",
+                  duration: 1000,
+                });
+                self.email_unavailable = true;
+             }
+              console.log(response);
+              });
+            
+          }
+        },
+        data() {
+          return {
+
           name: "",
-          email: "libranHs@gmail.com",
+          email: "",
           password: "",
           is_store_open: true,
           store_name: "",
+          email_unavailable : false,
+          }
+
         },
       });
     </script>
