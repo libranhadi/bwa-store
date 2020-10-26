@@ -15,7 +15,7 @@
             <div class="col-12">
               <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
-                  <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                  <li class="breadcrumb-item"><a href="{{ route('index') }}">Home</a></li>
                   <li class="breadcrumb-item active" aria-current="page">
                     Cart
                   </li>
@@ -33,13 +33,15 @@
               <table class="table table-borderless table-cart">
                 <thead>
                   <tr>
-                    <th>image</th>
+                    <th>Image</th>
                     <th>Name &amp; Seller</th>
                     <th>Price</th>
                     <th>Menu</th>
                   </tr>
                 </thead>
                 <tbody>
+                  @foreach ($carts as $cart)
+                      
                   <tr>
                     <td style="width: 20%">
                       <img
@@ -49,7 +51,7 @@
                       />
                     </td>
                     <td style="width: 30%">
-                      <div class="product-title">Sofa Ternyaman</div>
+                      <div class="product-title">{{ $cart->name }}</div>
                       <div class="product-subtitle">By Libran Hadi</div>
                     </td>
                     <td style="width: 20%">
@@ -60,40 +62,8 @@
                       <a href="#" class="btn btn-remove-cart">Remove</a>
                     </td>
                   </tr>
-                  <tr>
-                    <td style="width: 25">
-                      <img src="images/product-cart-2.jpg" alt="" />
-                    </td>
-                    <td style="width: 30%">
-                      <div class="product-title">
-                        Sneakers For Ngudag Layangan
-                      </div>
-                      <div class="product-subtitle">By Libran Hadi</div>
-                    </td>
-                    <td style="width: 20%">
-                      <div class="product-title">$800</div>
-                      <div class="product-subtitle">USD</div>
-                    </td>
-                    <td>
-                      <a href="#" class="btn btn-remove-cart">Remove</a>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td style="width: 25">
-                      <img src="images/product-cart-3.jpg" alt="" />
-                    </td>
-                    <td style="width: 30%">
-                      <div class="product-title">Coffee Holder</div>
-                      <div class="product-subtitle">By Libran Hadi</div>
-                    </td>
-                    <td style="width: 20%">
-                      <div class="product-title">$800</div>
-                      <div class="product-subtitle">USD</div>
-                    </td>
-                    <td>
-                      <a href="#" class="btn btn-remove-cart">Remove</a>
-                    </td>
-                  </tr>
+                  @endforeach
+                
                 </tbody>
               </table>
             </div>

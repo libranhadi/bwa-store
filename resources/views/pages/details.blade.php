@@ -8,7 +8,7 @@
           <div class="col-12">
             <nav aria-label="breadcrumb">
               <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                <li class="breadcrumb-item"><a href="{{ route('index')}}">Home</a></li>
                 <li class="breadcrumb-item active" aria-current="page">
                   Products Details
                 </li>
@@ -45,13 +45,24 @@
         <div class="container">
           <div class="row">
             <div class="col-lg-8">
-              <h1>Sofa Ternyamam</h1>
-              <div class="owner">Libran Hadi</div>
-              <div class="price">$800</div>
+              <h1>{{ $product->name }}</h1>
+              <div class="owner">{{ $product->user->name }}</div>
+              <div class="price">${{ number_format($product->price) }}</div>
             </div>
-            <div class="col-lg-2">
-              <a href="cart.html" class="btn btn-success px-4 text-white btn-block mb-3">Add To Cart</a>
+            @auth
+            <form action="{{ route('details-product-add', $product->id) }}" method="POST" enctype="multipart/form-data">
+              @csrf
+       
+              <button type="submit" class="btn btn-success px-4 text-white btn-block mb-3">Add To Cart</button>
+       
+            </form>
+
+            @else
+             <div class="col-lg-2">
+              <a href="{{ route('login') }}" class="btn btn-success px-4 text-white btn-block mb-3">Sign In</a>
             </div>
+                @endauth
+          
           </div>
         </div>
       </section>
@@ -59,20 +70,7 @@
         <div class="container">
           <div class="row">
             <div class="col-lg-8 col-12">
-              <p>
-                The Nike Air Max 720 SE goes bigger than ever before with
-                Nike's tallest Air unit yet for unimaginable, all-day comfort.
-                There's super breathable fabrics on the upper, while colours
-                add a modern edge.
-              </p>
-              <p>
-                Bring the past into the future with the Nike Air Max 2090, a
-                bold look inspired by the DNA of the iconic Air Max 90.
-                Brand-new Nike Air cushioning underfoot adds unparalleled
-                comfort while transparent mesh and vibrantly coloured details
-                on the upper are blended with timeless OG features for an
-                edgy, modernised look.
-              </p>
+             {!! $product->description!!}
             </div>
           </div>
         </div>
@@ -136,24 +134,14 @@
         AOS.init();
       },
       data: {
-        activePhoto: 2,
+        activePhoto: 0,
         photos: [
+            @foreach($product->galleries as $gallery)
           {
-            id: 1,
-            url: "/images/product-details-1.jpg",
+            id: {{ $gallery->id }},
+            url: "{{ Storage::url($gallery->photo) }}",
           },
-          {
-            id: 2,
-            url: "/images/product-details-2.jpg",
-          },
-          {
-            id: 3,
-            url: "/images/product-details-3.jpg",
-          },
-          {
-            id: 4,
-            url: "/images/product-details-4.jpg",
-          },
+         @endforeach
         ],
       },
       methods: {

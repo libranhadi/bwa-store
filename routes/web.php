@@ -25,7 +25,9 @@ Route::get('/', 'HomeController@index')->name('index');
 Route::get('/category', 'CategoryController@index')->name('category');
 Route::get('/categories/{id}', 'CategoryController@show')->name('categories.detail');
 
-Route::get('/details/id', 'DetailsController@index')->name('details');
+Route::get('/details/{id}', 'DetailsController@index')->name('details');
+Route::post('/details/{id}', 'DetailsController@add')->name('details-product-add');
+
 Route::get('/cart', 'CartController@index')->name('cart');
 Route::get('/success', 'CartController@success')->name('success');
 Route::get('/regses', 'Auth\RegisterController@success')->name('register-success');

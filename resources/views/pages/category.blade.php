@@ -58,7 +58,7 @@
               data-aos="fade-up"
               data-aos-delay="{{ $incrementProduct+= 100 }}"
             >
-              <a href="{{ route("details") }}" class="components-products d-block">
+              <a href="{{ route("details", $product->slug) }}" class="components-products d-block">
                 <div class="product-thumbnail">
                   <div
                     class="product-image"
