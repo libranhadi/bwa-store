@@ -40,12 +40,12 @@
                   </tr>
                 </thead>
                 <tbody>
-                  @foreach ($carts->product as $cart)
+                  @foreach ($carts as $cart)
                       
                   <tr>
                     <td style="width: 20%">
                       <img
-                        src="{{ Storage::url($cart->galleries->photo) }}"
+                        src="{{ Storage::url($cart->product->galleries->first()->photo) }}"
                         alt=""
                         class="cart-image w-100"
                       />
@@ -59,7 +59,11 @@
                       <div class="product-subtitle">USD</div>
                     </td>
                     <td>
-                      <button type="submit" class="btn btn-remove-cart">Remove</button>
+                      <form action="{{ route('delete-cart', $cart->id) }}" method="post">
+                        @method('DELETE')
+                        @csrf
+                        <button type="submit" class="btn btn-remove-cart">Remove</button>
+                      </form>
                     </td>
                   </tr>
                   @endforeach

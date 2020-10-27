@@ -29,6 +29,8 @@ Route::get('/details/{id}', 'DetailsController@index')->name('details');
 Route::post('/details/{id}', 'DetailsController@add')->name('details-product-add');
 
 Route::get('/cart', 'CartController@index')->name('cart');
+Route::delete('/delete-cart/{id}', 'CartController@delete')->name('delete-cart');
+
 Route::get('/success', 'CartController@success')->name('success');
 Route::get('/regses', 'Auth\RegisterController@success')->name('register-success');
 Route::group(['prefix' => 'dashboard'], function () {

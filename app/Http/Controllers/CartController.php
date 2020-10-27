@@ -18,6 +18,14 @@ class CartController extends Controller
          'carts'=> $cart
      ])    ;
     }
+
+    public function delete($id){
+        $cart = Cart::findOrFail($id);
+        $cart->delete();
+        return redirect()->back();
+    }
+
+    
     public function success()
     {
         return view("pages.success");
