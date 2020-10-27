@@ -40,26 +40,26 @@
                   </tr>
                 </thead>
                 <tbody>
-                  @foreach ($carts as $cart)
+                  @foreach ($carts->product as $cart)
                       
                   <tr>
                     <td style="width: 20%">
                       <img
-                        src="images/product-cart-1.jpg"
+                        src="{{ Storage::url($cart->galleries->photo) }}"
                         alt=""
                         class="cart-image w-100"
                       />
                     </td>
                     <td style="width: 30%">
                       <div class="product-title">{{ $cart->name }}</div>
-                      <div class="product-subtitle">By Libran Hadi</div>
+                      <div class="product-subtitle">{{ $cart->users->name  }}</div>
                     </td>
                     <td style="width: 20%">
-                      <div class="product-title">$800</div>
+                      <div class="product-title">${{ number_format($cart->product->price) }}</div>
                       <div class="product-subtitle">USD</div>
                     </td>
                     <td>
-                      <a href="#" class="btn btn-remove-cart">Remove</a>
+                      <button type="submit" class="btn btn-remove-cart">Remove</button>
                     </td>
                   </tr>
                   @endforeach
