@@ -22,7 +22,7 @@
 
   <body>
     <!-- navigasi -->
-    @include('includes.navbar-auth')
+    @include('includes.navbar')
   
     <!-- page-content -->
   @yield('content')

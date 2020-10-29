@@ -74,11 +74,25 @@
                                     </form>
               </div>
             </li>
+          
+                
             <li class="nav-item">
-              <a class="nav-link d-inline-block mt-2">
-                <img src="/images/icon-cart-empty.svg" alt="cart" />
+              <a href="{{ route('cart') }}" class="nav-link d-inline-block mt-2">
+            @php
+                 $carts = \App\Cart::where('users_id', Auth::user()->id)->count()
+            @endphp
+            @if ($carts > 0)
+                <img src="/images/icon-cart-filled.svg" alt="cart" />
+                <div class="card-badge">{{ $carts }}</div>
+                
+              @else 
+              <img src="/images/icon-cart-empty.svg" alt="cart" />
+                @endif
+
               </a>
+
             </li>
+            
           </ul>
 
           <!-- navbar mobile -->

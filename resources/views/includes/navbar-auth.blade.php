@@ -18,10 +18,10 @@
         <div class="collapse navbar-collapse" id="navbarResponsive">
           <ul class="navbar-nav ml-auto">
             <li class="nav-item">
-              <a class="nav-link" href="#">Home</a>
+              <a class="nav-link" href="{{ route('index') }}">Home</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Categories</a>
+              <a class="nav-link" href="{{ route('category') }}">Categories</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="#">Rewards</a>
@@ -51,7 +51,7 @@
                 <a href="dashboard.html" class="dropdown-item">Dashboard</a>
                 <a href="" class="dropdown-item">Settings</a>
                 <div class="dropdown-divider"></div>
-                <a href="/" class="dropdown-item">Logout</a>
+                <a href="{{ route('logout') }}" class="dropdown-item">Logout</a>
               </div>
             </li>
             <li class="nav-item">
@@ -67,7 +67,7 @@
               <a href="#" class="nav-link"> Hi, Jane </a>
             </li>
             <li class="nav-item">
-              <a href="" class="nav-link d-inline-block"> Cart </a>
+              <a href="{{ route('cart') }}" class="nav-link d-inline-block"> Cart </a>
             </li>
           </ul>
         </div>
