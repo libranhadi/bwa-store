@@ -40,6 +40,9 @@
                   </tr>
                 </thead>
                 <tbody>
+          @php
+              $totalprice = 0
+          @endphp
                   @foreach ($carts as $cart)
                       
                   <tr>
@@ -51,8 +54,8 @@
                       />
                     </td>
                     <td style="width: 30%">
-                      <div class="product-title">{{ $cart->name }}</div>
-                      <div class="product-subtitle">{{ $cart->users->name  }}</div>
+                      <div class="product-title">{{ $cart->product->name }}</div>
+                      <div class="product-subtitle">{{ $cart->users->store_name  }}</div>
                     </td>
                     <td style="width: 20%">
                       <div class="product-title">${{ number_format($cart->product->price) }}</div>
@@ -66,8 +69,10 @@
                       </form>
                     </td>
                   </tr>
+                @php
+                    $totalprice += $cart->product->price
+                @endphp
                   @endforeach
-                
                 </tbody>
               </table>
             </div>
@@ -80,14 +85,16 @@
               <h5 class="mb-4">Shipping-details</h5>
             </div>
           </div>
+          <form action="" method="post" id="checkout">
+  @csrf
           <div class="row mb-4" data-aos-delay="200" data-aos="fade-up">
             <div class="col-md-6">
               <div class="form-group">
-                <label for="">Address 1</label>
+                <label for="">Address One</label>
                 <input
                   type="text"
-                  name="addressOne"
-                  id="addressOne"
+                  name="address_one"
+                  id="address_one"
                   class="form-control"
                   value="Setra Duta Cemara"
                 />
@@ -95,11 +102,11 @@
             </div>
             <div class="col-md-6">
               <div class="form-group">
-                <label for="">Address 2</label>
+                <label for="">Address two</label>
                 <input
                   type="text"
-                  name="addressOne"
-                  id="addressOne"
+                  name="address_two"
+                  id="address_two"
                   class="form-control"
                   value="Blok B2 No. 34"
                 />
@@ -108,29 +115,30 @@
 
             <div class="col-md-4">
               <div class="form-group">
-                <label for="Province">Province</label>
-                <select name="province" id="province" class="form-control">
-                  <option value="">Jawa Barat</option>
-                  <option value="">Jawa Tengah</option>
+                <label for="provinces_id">Provinces</label>
+                <select name="provinces_id" id="provinces_id" class="form-control" v-if="provinces" v-model = 'provinces_id'>
+                <option v-for="province in provinces" :value="province.id">@{{ province.name }}</option>
+
+                </select>
+                <select v-else="" id="" class="form-control"></select>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group">
+                <label for="regencies_id">City</label>
+                <select name="regencies_id" id="regencies_id" class="form-control" v-if="regencies" v-model = 'regencies_id'>
+                <option v-for="regency in regencies" :value="regencies.id">@{{ regency.name }}</option>
+               
                 </select>
               </div>
             </div>
             <div class="col-md-4">
               <div class="form-group">
-                <label for="city">City</label>
-                <select name="city" id="city" class="form-control">
-                  <option value="">Bandung</option>
-                  <option value="">Surabaya</option>
-                </select>
-              </div>
-            </div>
-            <div class="col-md-4">
-              <div class="form-group">
-                <label for="postalCode">Postal Code</label>
+                <label for="zip_code">Postal Code</label>
                 <input
                   type="text"
-                  name="postalCode"
-                  id="postalCode"
+                  name="zip_code"
+                  id="zip_code"
                   class="form-control"
                   value="2122322"
                 />
@@ -151,10 +159,10 @@
             </div>
             <div class="col-md-6">
               <div class="form-group">
-                <label for="Mobile">Mobile Phone</label>
+                <label for="Phone_number">Phone</label>
                 <input
                   type="text"
-                  name="phone"
+                  name="phone_number"
                   id="Mobile"
                   class="form-control"
                   value="0812323xxxx"
@@ -162,6 +170,8 @@
               </div>
             </div>
           </div>
+      
+         
           <div class="row" data-aos-delay="250" data-aos="fade-up">
             <div class="col-12">
               <h5 class="mb-4">Payment Information</h5>
@@ -181,8 +191,8 @@
               <div class="product-subtitle">Ship To Jakarta</div>
             </div>
             <div class="col-4 col-md-2">
-              <div class="product-title">$392,409</div>
-              <div class="product-subtitle">Total</div>
+              <div class="product-title">${{ number_format($totalprice) }}</div>
+              <div class="product-subtitle">Total Price</div>
             </div>
             <div class="col-8 col-md-3">
               <a
@@ -192,9 +202,50 @@
               >
             </div>
           </div>
+              </form>
         </div>
       </section>
 
      
     </div>
 @endsection
+@push('after-script')
+       <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+       <script>
+         var checkout = new Vue ({
+           el : "#checkout",
+           mounted(){
+             AOS.init();
+             this.getProvincesData();
+           },
+           data : {
+            provinces : null,
+            regencies : null,
+            provinces_id : null, 
+            regencies_id : null
+           },
+           methods : {
+             getProvincesData()  {
+               var self = this;
+               axios.get('{{ route('api-provinces') }}') 
+                .then(function(response){
+                  self.provinces = response.data;
+                })
+               },
+               getRegenciesData(){
+                 var self = this;
+                 axios.get('{{ url('api/regencies') }}/' + self.provinces_id )
+                 .then(function(response){
+                   self.regencies = response.data;
+                 })
+               },
+           },
+           watch : {
+            provinces_id: function(val, oldval){
+              this.regencies_id = null;
+              this.getRegenciesData();
+            }
+           }, 
+         })
+       </script>
+@endpush
