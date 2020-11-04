@@ -31,6 +31,10 @@ Route::post('/details/{id}', 'DetailsController@add')->name('details-product-add
 Route::get('/cart', 'CartController@index')->name('cart');
 Route::delete('/delete-cart/{id}', 'CartController@delete')->name('delete-cart');
 
+Route::post('checkout', 'CheckoutController@process')->name('checkout');
+Route::post('callback', 'CheckoutController@callback')->name('callback-midtrans');
+
+
 Route::get('/success', 'CartController@success')->name('success');
 Route::get('/regses', 'Auth\RegisterController@success')->name('register-success');
 Route::group(['prefix' => 'dashboard'], function () {

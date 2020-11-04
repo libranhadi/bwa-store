@@ -85,8 +85,9 @@
               <h5 class="mb-4">Shipping-details</h5>
             </div>
           </div>
-          <form action="" method="post" id="checkout">
-  @csrf
+          <form action="{{ route('checkout') }}" method="post" id="checkout">
+            @csrf
+            <input type="hidden" name="total_price" value="{{ $totalprice}}">
           <div class="row mb-4" data-aos-delay="200" data-aos="fade-up">
             <div class="col-md-6">
               <div class="form-group">
@@ -195,11 +196,10 @@
               <div class="product-subtitle">Total Price</div>
             </div>
             <div class="col-8 col-md-3">
-              <a
-                href="/success.html"
+              <button
+              type="submit"
                 class="btn btn-success mt-1 px-4 btn-block"
-                >Checkout Now</a
-              >
+                >Checkout Now</button>
             </div>
           </div>
               </form>
