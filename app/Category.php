@@ -13,6 +13,7 @@ class Category extends Model
 
     protected $hidden = [];
 
+    //dibaca nya kategori mempunyai banyak produk
     public function products(){
         return $this->hasMany(Product::class, 'id');
     }
