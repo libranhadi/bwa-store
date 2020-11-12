@@ -28,17 +28,15 @@ Route::get('/categories/{id}', 'CategoryController@show')->name('categories.deta
 Route::get('/details/{id}', 'DetailsController@index')->name('details');
 Route::post('/details/{id}', 'DetailsController@add')->name('details-product-add');
 
-Route::get('/cart', 'CartController@index')->name('cart');
-Route::delete('/delete-cart/{id}', 'CartController@delete')->name('delete-cart');
 
-Route::post('checkout', 'CheckoutController@process')->name('checkout');
 Route::post('callback', 'CheckoutController@callback')->name('callback-midtrans');
 
+Route::group(['middleware' => ['auth']], function () {
+Route::get('/cart', 'CartController@index')->name('cart');
+Route::delete('/delete-cart/{id}', 'CartController@delete')->name('delete-cart');
+Route::post('checkout', 'CheckoutController@process')->name('checkout');    
 
-Route::get('/success', 'CartController@success')->name('success');
-Route::get('/regses', 'Auth\RegisterController@success')->name('register-success');
-Route::group(['prefix' => 'dashboard'], function () {
-    Route::get('/', 'DashboardController@index')->name('dashboard');
+
     Route::get('/product', 'DashboardController@product')->name('dashboard-product');
     Route::get('/product/id', 'DashboardController@show')->name('dashboard-product-detail');
 
@@ -47,10 +45,16 @@ Route::group(['prefix' => 'dashboard'], function () {
     Route::get('/transaction', 'DashboardController@transaction')->name('dashboard-transaction');
     Route::get('/transaction/id', 'DashboardController@detail')->name('dashboard-detail');
     Route::get('create', 'DashboardController@create')->name('dashboard-create');
+    Route::get('dashboard', 'DashboardController@index')->name('dashboard');
+
+});
+Route::get('/success', 'CartController@success')->name('success');
+Route::get('/regses', 'Auth\RegisterController@success')->name('register-success');
+Route::group(['prefix' => 'dashboard'], function () {
+    
 });
 
 Route::prefix('admin')->namespace('Admin')->group(function () {
-    Route::get('dashboard', 'DashboardController@index')->name('admin-dashboard');
     Route::get('categories', 'CategoryController@index')->name('admin-categories');
     Route::get('users', 'UserController@index')->name('admin-users');
     Route::get('create', 'CategoryController@create')->name('create-categories');

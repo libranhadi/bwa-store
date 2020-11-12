@@ -48,7 +48,39 @@ class CheckoutController extends Controller
             ]);
         }
 
-        return dd($transaction);
+        Cart::with(['product' , 'users'])->where('users_id', Auth::user()->id)->delete();
 
+        Config::$serverKey = config('services.midtrans.serverKey');
+        Config::$isProduction = config('services.midtrans.isProducttion');
+        Config::$isSanitized = config('services.midtrans.isSanitized');
+        Config::$is3ds = config('services.midtrans.is3ds');
+
+        $midtrans = array(
+    'transaction_details' => array(
+        'order_id' => $code,
+        'gross_amount' => (int) $request->total_price,
+    ),
+    'customer_details' => array(
+        'first_name' => Auth::user()->name,
+        'email' => Auth::user()->email,
+        'phone' => Auth::user()->phone_number,
+    ),
+    'enabled_payments' => array(
+        'permata_va', "gopay" , "indomaret" , 'bri_va', 'bca_va'
+    ) ,
+        'vtweb' => [],
+
+    );
+
+            try {
+            // Get Snap Payment Page URL
+            $paymentUrl = Snap::createTransaction($midtrans)->redirect_url;
+            
+            // Redirect to Snap Payment Page
+            return redirect($paymentUrl);
+            }
+            catch (Exception $e) {
+            echo $e->getMessage();
+            }
     }
 }

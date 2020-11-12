@@ -27,30 +27,30 @@
           <div class="sidebar-heading text-center">
             <img src="/images/dashboard-store-logo.svg" alt="" class="my-4" />
           </div>
-          <div class="list-group list-group-flush">
+          <div class="list-group list-group-flush " >
             <a
               href="{{ route('dashboard') }}"
-              class="list-group-item-action list-group-item active"
+              class="list-group-item-action list-group-item {{ Request::is('dashboard*') ? 'active' : '' }}"
               >Dashboard</a
             >
             <a
               href="{{ route("dashboard-product") }}"
-              class="list-group-item-action list-group-item"
+              class="list-group-item-action list-group-item {{ Request::is('product*') ? 'active' : '' }}"
               >My Product</a
             >
             <a
               href="{{ route("dashboard-transaction")}}"
-              class="list-group-item-action list-group-item"
+              class="list-group-item-action list-group-item {{ Request::is('transaction*') ? 'active' : '' }}"
               >Transactions</a
             >
             <a
               href="{{ route("dashboard-settings") }}"
-              class="list-group-item-action list-group-item"
+              class="list-group-item-action list-group-item {{ Request::is('settings*') ? 'active' : '' }}"
               >Store Settings</a
             >
             <a
               href="{{ route("dashboard-account") }}"
-              class="list-group-item-action list-group-item"
+              class="list-group-item-action list-group-item {{ Request::is('account*') ? 'active' : '' }}"
               >My account</a
             >
           </div>
