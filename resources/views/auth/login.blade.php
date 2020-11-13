@@ -59,9 +59,8 @@
                 <button class="btn btn-success w-75 mt-4 btn-block" type="submit"
                   >Sign In To My Account</button
                 >
-                <button href="" class="btn btn-signup w-75 mt-4 btn-block"
-                  >Sign Up</button
-                >
+                <a href="{{ route('register') }}" class="btn btn-signup w-75 mt-4 btn-block"
+                  >Sign Up</a>
               </form>
             </div>
           </div>

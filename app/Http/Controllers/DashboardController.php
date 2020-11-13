@@ -12,26 +12,25 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        //memanggil db transactiondetail dengan relasinya dan memfilter product berdasarkan transaksi user yang login
-        $transaction = TransactionDetail::with(['product.galleries' , 'transaction.user'])
+        //menampilkan produk yang telah dibeli berdasarkan user yang login
+        $transactions = TransactionDetail::with([ 'transaction.user' , 'product.galleries'])
         ->whereHas('product', function ($product) {
             $product->where('users_id', Auth::user()->id );
         });
 
         //menjumlahkan penjualan berdasarkan harga perbarang selain menggunakan
-        $revenue = $transaction->get()->reduce(function($carry, $item){
+        $revenue = $transactions->get()->reduce(function($carry, $item){
             return $carry + $item->price;
         });
 
         //user berdasarkan transaksi 
-        $customer = User::count();
+        $customer = Transaction::where('users_id')->count();
         
         return view("pages.dashboard", [
-            'transaction_count' => $transaction->count(),
-            'transaction_data' => $transaction->get(),
+            'transaction_count' => $transactions->count(),
+            'transaction_data' => $transactions->get(),
             'revenue' => $revenue,
             'customer' =>$customer
-            
         ]);
     }
     public function product()
