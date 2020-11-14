@@ -49,6 +49,7 @@ Route::get('/transaction/id', 'DashboardController@detail')->name('dashboard-det
 //product
 Route::get('/product/id', 'DashboardProductController@show')->name('dashboard-product-detail');
 Route::get('create', 'DashboardProductController@create')->name('dashboard-create');
+Route::post('store', 'DashboardProductController@store')->name('dashboard-store');
 Route::get('/product', 'DashboardProductController@product')->name('dashboard-product');
 
 });

@@ -1,26 +1,39 @@
-@extends('layouts.dashboard', ['title'=> 'ADD NEW PRODUCT'])
+@extends('layouts.dashboard', ['title'=> 'Product'])
 
 @section('content')
      <div class="section-content section-dashboard-home">
             <div class="container-fluid">
               <h2 class="dashboard-title">Store Settings</h2>
               <p class="dashboard-subtitle">Make store that profitable</p>
+              @if ($errors->any())
+                  <div class="alert alert-danger">
+                    <ul>
+                      @foreach ($errors->all() as $error)
+                          <li>
+                            {{ $error }}
+                          </li>
+                      @endforeach
+                    </ul>
+                  </div>
+              @endif
               <div class="dashboard-content">
                 <div class="row mt-3">
                   <div class="col-12">
                     <div class="card">
                       <div class="card-body">
-                        <form action="">
+                        <form action="{{ route('dashboard-store') }}" method="POST" enctype="multipart/form-data">
+                          @csrf
+                          <input type="hidden" name="users_id" value="{{ Auth::user()->id }}">
                           <div class="row">
                             <div class="col-6">
                               <div class="form-group">
                                 <label for="nameProduct">Product Name</label>
                                 <input
                                   type="text"
-                                  name="nameProduct"
+                                  name="name"
                                   id="name Product"
                                   class="form-control"
-                                  value="Fanta"
+                              
                                 />
                               </div>
                             </div>
@@ -32,7 +45,7 @@
                                   name="price"
                                   id="priceProduct"
                                   class="form-control"
-                                  value="$1000"
+                                  
                                 />
                               </div>
                             </div>
@@ -40,11 +53,16 @@
                               <div class="form-group">
                                 <label for="category">Category</label>
                                 <select
-                                  name="categpry"
-                                  id="caetgory"
+                                  name="categories_id"
+                                  id="category"
                                   class="form-control"
                                 >
-                                  <option value="Foods" disabled>Foods</option>
+                                  <option value="Foods" disabled>-- Pilih Category--</option>
+
+                                @foreach ($category as $category)
+                                    
+                                <option value="{{ $category->id}}">{{ $category->name }}</option>
+                                @endforeach
                                 </select>
                               </div>
                             </div>
@@ -52,8 +70,8 @@
                               <div class="form-group">
                                 <label for="description">Description</label>
                                 <textarea
-                                  name="editor"
-                                  id=""
+                                  name="description"
+                                  id="editor"
                                   class="form-control"
                                 ></textarea>
                               </div>
@@ -63,7 +81,7 @@
                                 <label for="thumbnail">Thumbnail</label>
                                 <input
                                   type="file"
-                                  name="thumbnail"
+                                  name="photo"
                                   id="thumbnail"
                                   class="form-control"
                                 />
