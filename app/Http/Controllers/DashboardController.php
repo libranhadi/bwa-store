@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Transaction;
+use App\Category;
 use App\TransactionDetail;
 use App\User;
+use App\Product;
 use Illuminate\Support\Facades\Auth;
 
 class DashboardController extends Controller
@@ -32,10 +34,7 @@ class DashboardController extends Controller
             'customer' =>$customer
         ]);
     }
-    public function product()
-    {
-        return view("pages.dashboard-product");
-    }
+  
     public function settings()
     {
         return view("pages.dashboard-settings");
@@ -48,16 +47,10 @@ class DashboardController extends Controller
     {
         return view("pages.dashboard-transaction");
     }
-    public function detail()
+    public function detail(Request $request , $id)
     {
         return view("pages.dashboard-transaction-detail");
     }
-    public function create()
-    {
-        return view("pages.dashboard-create-product");
-    }
-    public function show()
-    {
-        return view("pages.dashboard-product-detail");
-    }
+   
+   
 }

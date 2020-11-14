@@ -37,7 +37,7 @@
                    @foreach ($transaction_data as $transaction)
                        
                     <a
-                      href="{{ route("dashboard-detail") }}"
+                      href="{{ route("dashboard-detail", $transaction->id) }}"
                       class="card card-list d-block"
                     >
                       <div class="card-body">

@@ -32,27 +32,29 @@ Route::post('/details/{id}', 'DetailsController@add')->name('details-product-add
 Route::post('callback', 'CheckoutController@callback')->name('callback-midtrans');
 
 Route::group(['middleware' => ['auth']], function () {
-Route::get('/cart', 'CartController@index')->name('cart');
-Route::delete('/delete-cart/{id}', 'CartController@delete')->name('delete-cart');
-Route::post('checkout', 'CheckoutController@process')->name('checkout');    
+    Route::get('/cart', 'CartController@index')->name('cart');
+    Route::delete('/delete-cart/{id}', 'CartController@delete')->name('delete-cart');
+    Route::post('checkout', 'CheckoutController@process')->name('checkout');    
+    
+    //dashboard
+Route::get('dashboard', 'DashboardController@index')->name('dashboard');
 
+//account
+Route::get('/settings', 'DashboardController@settings')->name('dashboard-settings');
+Route::get('/account', 'DashboardController@account')->name('dashboard-account');
+//transaction
+Route::get('/transaction', 'DashboardController@transaction')->name('dashboard-transaction');
+Route::get('/transaction/id', 'DashboardController@detail')->name('dashboard-detail');
 
-    Route::get('/product', 'DashboardController@product')->name('dashboard-product');
-    Route::get('/product/id', 'DashboardController@show')->name('dashboard-product-detail');
-
-    Route::get('/settings', 'DashboardController@settings')->name('dashboard-settings');
-    Route::get('/account', 'DashboardController@account')->name('dashboard-account');
-    Route::get('/transaction', 'DashboardController@transaction')->name('dashboard-transaction');
-    Route::get('/transaction/id', 'DashboardController@detail')->name('dashboard-detail');
-    Route::get('create', 'DashboardController@create')->name('dashboard-create');
-    Route::get('dashboard', 'DashboardController@index')->name('dashboard');
+//product
+Route::get('/product/id', 'DashboardProductController@show')->name('dashboard-product-detail');
+Route::get('create', 'DashboardProductController@create')->name('dashboard-create');
+Route::get('/product', 'DashboardProductController@product')->name('dashboard-product');
 
 });
 Route::get('/success', 'CartController@success')->name('success');
 Route::get('/regses', 'Auth\RegisterController@success')->name('register-success');
-Route::group(['prefix' => 'dashboard'], function () {
-    
-});
+
 
 Route::prefix('admin')->namespace('Admin')->group(function () {
     Route::get('dashboard', 'DashboardController@index')->name('admin-dashboard');
