@@ -43,14 +43,7 @@ class DashboardController extends Controller
     {
         return view("pages.dashboard-account");
     }
-    public function transaction()
-    {
-        return view("pages.dashboard-transaction");
-    }
-    public function detail(Request $request , $id)
-    {
-        return view("pages.dashboard-transaction-detail");
-    }
+    
    
    
 }

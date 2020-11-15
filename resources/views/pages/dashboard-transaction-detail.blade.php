@@ -2,7 +2,7 @@
 @section('content')
     <div class="section-content section-dashboard-home">
             <div class="container-fluid">
-              <h2 class="dashboard-title">#STORE0839</h2>
+              <h2 class="dashboard-title">{{ $transaction->transaction->code }}</h2>
               <p class="dashboard-subtitle">Transactions Details</p>
               <div class="dashboard-content" id="transactionsDetails">
                 <div class="row">
@@ -12,7 +12,7 @@
                         <div class="row">
                           <div class="col-12 col-md-4">
                             <img
-                              src="/images/product-details-2.jpg"
+                              src="{{ Storage::url($transaction->product->galleries->first()->photo) }}"
                               alt=""
                               class="w-100"
                             />
@@ -23,35 +23,35 @@
                               <div class="col-6 col-md-6">
                                 <div class="product-title">Customer Name</div>
                                 <div class="product-subtitle">
-                                  Libran Hadi Saputra
+                                  {{ $transaction->transaction->user->name }}
                                 </div>
                               </div>
                               <div class="col-6 col-md-6">
                                 <div class="product-title">Product Name</div>
                                 <div class="product-subtitle">
-                                  shirup marzan
+                                  {{ $transaction->product->name }}
                                 </div>
                               </div>
                               <div class="col-6 col-md-6">
                                 <div class="product-title">
                                   Date Of Transactions
                                 </div>
-                                <div class="product-subtitle">20-09-2020</div>
+                                <div class="product-subtitle">{{ $transaction->created_at }}</div>
                               </div>
                               <div class="col-6 col-md-6">
                                 <div class="product-title">Payment Status</div>
                                 <div class="product-subtitle text-danger">
-                                  Pending
+                                  {{ $transaction->shipping_status }}
                                 </div>
                               </div>
                               <div class="col-6 col-md-6">
                                 <div class="product-title">Total Amount</div>
-                                <div class="product-subtitle">$208,904</div>
+                                <div class="product-subtitle">${{ number_format($transaction->price) }}</div>
                               </div>
                               <div class="col-6 col-md-6">
                                 <div class="product-title">Mobile</div>
                                 <div class="product-subtitle">
-                                  +62 0818 8222
+                                  {{ $transaction->transaction->user->phone_number ?? '(-)' }}
                                 </div>
                               </div>
                             </div>
@@ -67,18 +67,22 @@
                               <div class="col-12 col-md-6">
                                 <div class="product-title">Address 1</div>
                                 <div class="product-subtitle">
-                                  Setra Duta Cemara
+                                  {{ $transaction->transaction->user->address_one ?? '-'}}
                                 </div>
                               </div>
                               <div class="col-12 col-md-6">
                                 <div class="product-title">Address 2</div>
                                 <div class="product-subtitle">
-                                  Blok b-18 Depok
+                                  {{ $transaction->transaction->user->addres_two ?? '-'}}
                                 </div>
                               </div>
                               <div class="col-12 col-md-6">
                                 <div class="product-title">Province</div>
-                                <div class="product-subtitle">West Java</div>
+                                <div class="product-subtitle">
+                                  {{ App\Models\Province::find($transaction->transaction->user->provinces_id)}}
+                              
+
+                                </div>
                               </div>
                               <div class="col-12 col-md-6">
                                 <div class="product-title">City</div>

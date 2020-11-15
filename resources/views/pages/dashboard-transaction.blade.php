@@ -96,7 +96,7 @@
                           </div>
                         </a>
                         <a
-                          href="{{ route("dashboard-detail") }}"
+                          href="{{ route("dashboard-detail" , $) }}"
                           class="card card-list d-block"
                         >
                           <div class="card-body">

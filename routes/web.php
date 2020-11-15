@@ -39,12 +39,15 @@ Route::group(['middleware' => ['auth']], function () {
     //dashboard
 Route::get('dashboard', 'DashboardController@index')->name('dashboard');
 
+
 //account
 Route::get('/settings', 'DashboardController@settings')->name('dashboard-settings');
 Route::get('/account', 'DashboardController@account')->name('dashboard-account');
+
+
 //transaction
-Route::get('/transaction', 'DashboardController@transaction')->name('dashboard-transaction');
-Route::get('/transaction/id', 'DashboardController@detail')->name('dashboard-detail');
+Route::get('/transaction', 'DashboardTransactionController@index')->name('dashboard-transaction');
+Route::get('/transaction-detail/{id}', 'DashboardTransactionController@detail')->name('dashboard-detail');
 
 //product
 Route::get('/product', 'DashboardProductController@product')->name('dashboard-product');
