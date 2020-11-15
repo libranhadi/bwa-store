@@ -26,8 +26,7 @@ class DashboardProductController extends Controller
     {
         $category = Category::all();
         return view("pages.dashboard-create-product" ,   [
-            'category' => $category
-            
+            'category' => $category       
         ]);
     }
     public function store(ProductRequest $request){
@@ -45,8 +44,37 @@ class DashboardProductController extends Controller
         return redirect()->route('dashboard-product');
     }
 
-     public function show()
+     public function show(Request $request , $id)
     {
-        return view("pages.dashboard-product-detail");
+        $category= Category::all();
+        $product = Product::with((['category', 'user', 'galleries']))->where('id' , $id)->firstOrFail();
+        
+        return view("pages.dashboard-product-detail" , [
+            'category'=>$category,
+            'product'=> $product
+        ]);
     }
+    public function update(Request $request, $id){
+        $attr = $request->all();
+        $attr['slug'] = Str::slug($request->name);
+        $item = Product::findOrFail($id);
+        $item->update($attr);
+
+        return redirect()->route('dashboard-product');
+    }
+    public function updateGallery(Request $request){
+        $attr = $request->all();
+
+        $attr['photo'] = $request->file('photo')->store('assets/products' , 'public');
+        ProductGallery::create($attr);
+        return redirect()->route('dashboard-product-detail', $request->products_id);
+    }
+
+    public function delete(Request $request, $id){
+        $attr = ProductGallery::findOrFail($id);
+        $attr->delete();
+        return redirect()->back();
+        
+    }
+
 }

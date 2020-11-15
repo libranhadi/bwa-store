@@ -47,10 +47,14 @@ Route::get('/transaction', 'DashboardController@transaction')->name('dashboard-t
 Route::get('/transaction/id', 'DashboardController@detail')->name('dashboard-detail');
 
 //product
-Route::get('/product/id', 'DashboardProductController@show')->name('dashboard-product-detail');
+Route::get('/product', 'DashboardProductController@product')->name('dashboard-product');
 Route::get('create', 'DashboardProductController@create')->name('dashboard-create');
 Route::post('store', 'DashboardProductController@store')->name('dashboard-store');
-Route::get('/product', 'DashboardProductController@product')->name('dashboard-product');
+Route::get('/product/{id}', 'DashboardProductController@show')->name('dashboard-product-detail');
+Route::put('/product/edit/{id}', 'DashboardProductController@update')->name('dashboard-product-update');
+Route::post('/product/edit/gallery', 'DashboardProductController@updateGallery')->name('dashboard-product-update-gallery');
+Route::get('/product/delete/{id}', 'DashboardProductController@delete')->name('dashboard-product-delete');
+
 
 });
 Route::get('/success', 'CartController@success')->name('success');
