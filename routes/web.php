@@ -48,6 +48,8 @@ Route::get('/account', 'DashboardController@account')->name('dashboard-account')
 //transaction
 Route::get('/transaction', 'DashboardTransactionController@index')->name('dashboard-transaction');
 Route::get('/transaction-detail/{id}', 'DashboardTransactionController@detail')->name('dashboard-detail');
+Route::post('/transaction-detail-update/{id}', 'DashboardTransactionController@update')->name('dashboard-update-transaction-detail');
+
 
 //product
 Route::get('/product', 'DashboardProductController@product')->name('dashboard-product');

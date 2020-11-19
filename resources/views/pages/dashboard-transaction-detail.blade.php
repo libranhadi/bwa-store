@@ -4,6 +4,17 @@
             <div class="container-fluid">
               <h2 class="dashboard-title">{{ $transaction->transaction->code }}</h2>
               <p class="dashboard-subtitle">Transactions Details</p>
+                @if ($errors->any())
+                  <div class="alert alert-danger">
+                    <ul>
+                      @foreach ($errors->all() as $error)
+                          <li>
+                            {{ $error }}
+                          </li>
+                      @endforeach
+                    </ul>
+                  </div>
+              @endif
               <div class="dashboard-content" id="transactionsDetails">
                 <div class="row">
                   <div class="col-12">
@@ -40,9 +51,11 @@
                               </div>
                               <div class="col-6 col-md-6">
                                 <div class="product-title">Payment Status</div>
-                                <div class="product-subtitle text-danger">
-                                  {{ $transaction->shipping_status }}
+                              
+                               <div class="product-subtitle {{ $transaction->shipping_status == 'SUCCESS' ? 'text-success' : 'text-danger' }}">
+                                  {{ $transaction->shipping_status }}    
                                 </div>
+                                 
                               </div>
                               <div class="col-6 col-md-6">
                                 <div class="product-title">Total Amount</div>
@@ -57,6 +70,9 @@
                             </div>
                           </div>
                         </div>
+                        <form action="{{ route('dashboard-update-transaction-detail', $transaction->id) }}" method="post" enctype="multipart/form-data">
+                          @csrf
+                       
                         <div class="row">
                           <div class="col-12">
                             <h5>Shipping Information</h5>
@@ -79,22 +95,29 @@
                               <div class="col-12 col-md-6">
                                 <div class="product-title">Province</div>
                                 <div class="product-subtitle">
-                                  {{ App\Models\Province::find($transaction->transaction->user->provinces_id)}}
-                              
+                                 
+                                      {{ App\Models\Province::find($transaction->transaction->user->provinces_id)->name }}
 
                                 </div>
                               </div>
                               <div class="col-12 col-md-6">
                                 <div class="product-title">City</div>
-                                <div class="product-subtitle">Depok</div>
+                                <div class="product-subtitle">
+                                      {{ App\Models\Regency::find($transaction->transaction->user->regencies_id)->name }}
+
+                                </div>
                               </div>
                               <div class="col-12 col-md-6">
                                 <div class="product-title">Postal Code</div>
-                                <div class="product-subtitle">16016</div>
+                                <div class="product-subtitle">
+                                  {{ $transaction->transaction->user->zip_code }}
+                                </div>
                               </div>
                               <div class="col-12 col-md-6">
                                 <div class="product-title">Country</div>
-                                <div class="product-subtitle">Indonesia</div>
+                                <div class="product-subtitle">
+                                  {{ $transaction->transaction->user->country }}
+                                </div>
                               </div>
                               <div class="col-12 col-md-3">
                                 <div class="product-title">
@@ -102,7 +125,7 @@
                                 </div>
 
                                 <select
-                                  name="status"
+                                 name="shipping_status"
                                   id="status"
                                   class="form-control"
                                   v-model="status"
@@ -120,6 +143,7 @@
                                     type="text"
                                     class="form-control"
                                     v-model="resi"
+                                    name="resi"
                                   />
                                 </div>
                                 <div class="col-md-2">
@@ -142,6 +166,8 @@
                                 </button>
                               </div>
                             </div>
+                        </form>
+
                           </div>
                         </div>
                       </div>
@@ -158,8 +184,8 @@
         el: "#transactionsDetails",
 
         data: {
-          status: "SHIPPING",
-          resi: "b23843284",
+          status: "{{ $transaction->shipping_status }}",
+          resi: "{{ $transaction->resi }}",
         },
       });
     </script>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\TransactionDetail;
 use Illuminate\Http\Request;
+
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 class DashboardTransactionController extends Controller
@@ -19,6 +20,14 @@ class DashboardTransactionController extends Controller
         return view("pages.dashboard-transaction-detail", [
             'transaction' => $transactions
         ]);
+    }
+
+    public function update(Request $request, $id){
+        $attr = $request->all();
+        $update =  TransactionDetail::findOrFail($id);
+
+        $update->update($attr);
+        return redirect()->route('dashboard');
     }
   
 }
