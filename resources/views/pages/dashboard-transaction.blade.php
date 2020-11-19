@@ -47,21 +47,25 @@
                         role="tabpanel"
                         aria-labelledby="pills-home-tab"
                       >
+                      @foreach ($transactions as $transaction)
+                          
+                     
                         <a
-                          href="{{ route("dashboard-detail") }}"
+                          href="{{ route('dashboard-detail' , $transaction->id) }}"
                           class="card card-list d-block"
                         >
                           <div class="card-body">
                             <div class="row">
                               <div class="col-md-1">
                                 <img
-                                  src="/images/dashboard-icon-product-1.png"
+                                  src="{{ Storage::url($transaction->product->galleries->first()->photo) }}"
                                   alt="product"
+                                  class="w-75"
                                 />
                               </div>
-                              <div class="col-md-4">Shirup marzan</div>
-                              <div class="col-md-3">Libran Hadi</div>
-                              <div class="col-md-3">19 January, 2020</div>
+                              <div class="col-md-4">{{ $transaction->product->name }}</div>
+                              <div class="col-md-3">{{ $transaction->transaction->user->name }}</div>
+                              <div class="col-md-3">{{ $transaction->created_at }}</div>
                               <div class="col-md-1 d-none d-md-block">
                                 <img
                                   src="/images/dashboard-arrow-right.svg"
@@ -71,56 +75,7 @@
                             </div>
                           </div>
                         </a>
-                        <a
-                          href="{{ route("dashboard-detail") }}"
-                          class="card card-list d-block"
-                        >
-                          <div class="card-body">
-                            <div class="row">
-                              <div class="col-md-1">
-                                <img
-                                  src="/images/dashboard-icon-product-2.png"
-                                  alt="product"
-                                />
-                              </div>
-                              <div class="col-md-4">Sepatu Cidogdag</div>
-                              <div class="col-md-3">LibranHS</div>
-                              <div class="col-md-3">20 January, 2020</div>
-                              <div class="col-md-1 d-none d-md-block">
-                                <img
-                                  src="/images/dashboard-arrow-right.svg"
-                                  alt=""
-                                />
-                              </div>
-                            </div>
-                          </div>
-                        </a>
-                        <a
-                          href="{{ route("dashboard-detail" , $) }}"
-                          class="card card-list d-block"
-                        >
-                          <div class="card-body">
-                            <div class="row">
-                              <div class="col-md-1">
-                                <img
-                                  src="/images/dashboard-icon-product-3.png"
-                                  alt="product"
-                                />
-                              </div>
-                              <div class="col-md-4">
-                                talbantal kapuk surkasur kisut
-                              </div>
-                              <div class="col-md-3">Libran Saputra</div>
-                              <div class="col-md-3">21 January, 2020</div>
-                              <div class="col-md-1 d-none d-md-block">
-                                <img
-                                  src="/images/dashboard-arrow-right.svg"
-                                  alt=""
-                                />
-                              </div>
-                            </div>
-                          </div>
-                        </a>
+                     @endforeach
                       </div>
                       <div
                         class="tab-pane fade"
@@ -128,21 +83,24 @@
                         role="tabpanel"
                         aria-labelledby="pills-profile-tab"
                       >
+                      @foreach ($buying as $buying)
+                          
                         <a
-                          href="{{ route("dashboard-detail") }}"
+                          href="{{ route('dashboard-detail', $buying->id) }}"
                           class="card card-list d-block"
                         >
                           <div class="card-body">
                             <div class="row">
                               <div class="col-md-1">
                                 <img
-                                  src="/images/dashboard-icon-product-2.png"
+                                  src="{{ Storage::url($buying->product->galleries->first()->photo) }}"
                                   alt="product"
+                                  class="w-75"
                                 />
                               </div>
-                              <div class="col-md-4">Sepatu Cidogdag</div>
-                              <div class="col-md-3">LibranHS</div>
-                              <div class="col-md-3">20 January, 2020</div>
+                              <div class="col-md-4">{{ $buying->product->name }}</div>
+                              <div class="col-md-3">{{ $buying->transaction->user->name }}</div>
+                              <div class="col-md-3">{{ $buying->created_at }}</div>
                               <div class="col-md-1 d-none d-md-block">
                                 <img
                                   src="/images/dashboard-arrow-right.svg"
@@ -152,6 +110,8 @@
                             </div>
                           </div>
                         </a>
+                      @endforeach
+
                       </div>
                     </div>
                   </div>

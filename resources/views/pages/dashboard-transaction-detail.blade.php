@@ -96,27 +96,27 @@
                                 <div class="product-title">Province</div>
                                 <div class="product-subtitle">
                                  
-                                      {{ App\Models\Province::find($transaction->transaction->user->provinces_id)->name }}
+                                      {{ App\Models\Province::find($transaction->transaction->user->provinces_id)->name ?? ''}}
 
                                 </div>
                               </div>
                               <div class="col-12 col-md-6">
                                 <div class="product-title">City</div>
                                 <div class="product-subtitle">
-                                      {{ App\Models\Regency::find($transaction->transaction->user->regencies_id)->name }}
+                                      {{ App\Models\Regency::find($transaction->transaction->user->regencies_id)->name ?? ''}}
 
                                 </div>
                               </div>
                               <div class="col-12 col-md-6">
                                 <div class="product-title">Postal Code</div>
                                 <div class="product-subtitle">
-                                  {{ $transaction->transaction->user->zip_code }}
+                                  {{ $transaction->transaction->user->zip_code ?? ''}}
                                 </div>
                               </div>
                               <div class="col-12 col-md-6">
                                 <div class="product-title">Country</div>
                                 <div class="product-subtitle">
-                                  {{ $transaction->transaction->user->country }}
+                                  {{ $transaction->transaction->user->country ?? ''}}
                                 </div>
                               </div>
                               <div class="col-12 col-md-3">
@@ -130,9 +130,18 @@
                                   class="form-control"
                                   v-model="status"
                                 >
-                                  <option value="PENDING">Pending</option>
-                                  <option value="SHIPPING">Shipping</option>
-                                  <option value="SUCCESS">Success</option>
+
+                                @if ($transaction->product->users_id != Auth::user()->id)
+                                <option value="SUCCESS">Success</option>
+                                
+                                
+                                @else
+                                <option value="PENDING">Pending</option>       
+                                <option value="SUCCESS">Success</option>                              
+                                <option value="SHIPPING">Shipping</option>
+                                @endif
+                             
+
                                 </select>
                               </div>
                               <template v-if="status == 'SHIPPING' ">
