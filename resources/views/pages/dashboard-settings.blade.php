@@ -9,29 +9,45 @@
                   <div class="col-12">
                     <div class="card">
                       <div class="card-body">
-                        <form action="">
+                         @if ($errors->any())
+                  <div class="alert alert-danger">
+                    <ul>
+                      @foreach ($errors->all() as $error)
+                          <li>
+                            {{ $error }}
+                          </li>
+                      @endforeach
+                    </ul>
+                  </div>
+              @endif
+                        <form action="{{ route('dashboard-settings-update' , 'dashboard-settings') }}" method="POST">
+                          @csrf
                           <div class="row">
                             <div class="col-6">
                               <div class="form-group">
                                 <label for="namaToko">Store Name</label>
                                 <input
                                   type="text"
-                                  name="namaToko"
+                                  name="store_name"
                                   id="namaToko"
                                   class="form-control"
-                                  value="papel la casa"
+                                  value="{{ old('store_name') ?? $user->store_name }}"
                                 />
                               </div>
                             </div>
                             <div class="col-6">
                               <div class="form-group">
-                                <label for="namaToko">Store Name</label>
+                                <label for="namaToko">Store Category</label>
                                 <select
-                                  name="category"
+                                  name="categories_id"
                                   id=""
                                   class="form-control"
                                 >
-                                  <option value="" disabled>Oncom</option>
+                                  <option value="" disabled>-- Pilih Category --</option>
+                                  @foreach ($category as $category)
+                                      
+                                  <option value="{{ $category->id ?? $user->categories_id }}">{{ $category->name }}</option>
+                                  @endforeach
                                 </select>
                               </div>
                             </div>
@@ -49,7 +65,8 @@
                                     name="is_store_open"
                                     id="openStoreTrue"
                                     class="custom-control-input"
-                                    value="true"
+                                    value= '1'
+                                    {{ $user->store_status == 1 ? 'checked' : '' }}
                                   />
                                   <label
                                     for="openStoreTrue"
@@ -66,7 +83,9 @@
                                     name="is_store_open"
                                     id="openStoreFalse"
                                     class="custom-control-input"
-                                    value="false"
+                                    value='0'
+                                    {{ $user->store_status == 0 || $user->store_status == null ? 'checked' : '' }}
+
                                   />
                                   <label
                                     for="openStoreFalse"

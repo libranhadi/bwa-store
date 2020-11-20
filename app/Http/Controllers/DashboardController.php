@@ -35,14 +35,7 @@ class DashboardController extends Controller
         ]);
     }
   
-    public function settings()
-    {
-        return view("pages.dashboard-settings");
-    }
-    public function account()
-    {
-        return view("pages.dashboard-account");
-    }
+  
     
    
    

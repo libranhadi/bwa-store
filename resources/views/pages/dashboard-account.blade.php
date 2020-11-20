@@ -40,7 +40,7 @@
                                 <label for="">Address 1</label>
                                 <input
                                   type="text"
-                                  name="addressOne"
+                                  name="address_one"
                                   id="addressOne"
                                   class="form-control"
                                   value="Setra Duta Cemara"
@@ -52,7 +52,7 @@
                                 <label for="">Address 2</label>
                                 <input
                                   type="text"
-                                  name="addressOne"
+                                  name="addres_two"
                                   id="addressOne"
                                   class="form-control"
                                   value="Blok B2 No. 34"
@@ -60,32 +60,27 @@
                               </div>
                             </div>
 
-                            <div class="col-md-4">
-                              <div class="form-group">
-                                <label for="Province">Province</label>
-                                <select
-                                  name="province"
-                                  id="province"
-                                  class="form-control"
-                                >
-                                  <option value="">Jawa Barat</option>
-                                  <option value="">Jawa Tengah</option>
-                                </select>
-                              </div>
-                            </div>
-                            <div class="col-md-4">
-                              <div class="form-group">
-                                <label for="city">City</label>
-                                <select
-                                  name="city"
-                                  id="city"
-                                  class="form-control"
-                                >
-                                  <option value="">Bandung</option>
-                                  <option value="">Surabaya</option>
-                                </select>
-                              </div>
-                            </div>
+                       
+            <div class="col-md-4">
+              <div class="form-group">
+                <label for="provinces_id">Provinces</label>
+                <select name="provinces_id" id="provinces_id" class="form-control" v-if="provinces" v-model = 'provinces_id'>
+                <option v-for="province in provinces" :value="province.id">@{{ province.name }}</option>
+
+                </select>
+                <select v-else="" id="" class="form-control"></select>
+              </div>
+            </div>
+                           <div class="col-md-4">
+              <div class="form-group">
+                <label for="regencies_id">City</label>
+                <select name="regencies_id" id="regencies_id" class="form-control" v-if="regencies" v-model = 'regencies_id'>
+                <option v-for="regency in regencies" :value="regencies.id">@{{ regency.name }}</option>
+               
+                </select>
+              </div>
+            </div>
+
                             <div class="col-md-4">
                               <div class="form-group">
                                 <label for="postalCode">Postal Code</label>

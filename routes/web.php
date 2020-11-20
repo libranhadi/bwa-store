@@ -41,8 +41,9 @@ Route::get('dashboard', 'DashboardController@index')->name('dashboard');
 
 
 //account
-Route::get('/settings', 'DashboardController@settings')->name('dashboard-settings');
-Route::get('/account', 'DashboardController@account')->name('dashboard-account');
+Route::get('/settings', 'DashboardAccountController@settings')->name('dashboard-settings');
+Route::get('/account', 'DashboardAccountController@account')->name('dashboard-account');
+Route::post('/settings-update/{redirect}', 'DashboardAccountController@update')->name('dashboard-settings-update');
 
 
 //transaction
