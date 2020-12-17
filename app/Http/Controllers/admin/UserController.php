@@ -111,7 +111,7 @@ class UserController extends Controller
        
          $attr = $request->all();
         $item = User::findOrFail($id);
-         if ($request->password) {
+        if ($request->password) {
                 $attr['password'] = bcrypt($request->password);    
         }else{
             unset($attr['password']);

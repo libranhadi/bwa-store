@@ -8,8 +8,9 @@
                 <div class="row mt-3">
                   <div class="col-12">
                     <div class="card">
-                      <div class="card-body">
-                        <form action="">
+                      <div class="card-body" id="checkout">
+                        <form action="{{ route('dashboard-settings-update' , 'dashboard-settings') }}" method="POST">
+                          @csrf
                           <div class="row mb-4">
                             <div class="col-md-6">
                               <div class="form-group">
@@ -19,7 +20,7 @@
                                   name="name"
                                   id="name"
                                   class="form-control"
-                                  value="libran"
+                                  value="{{ old('name') ?? $user->name }}"
                                 />
                               </div>
                             </div>
@@ -31,7 +32,7 @@
                                   name="email"
                                   id="email"
                                   class="form-control"
-                                  value="saputra@gmail.com"
+                                value="{{ old('email') ?? $user->email }}"
                                 />
                               </div>
                             </div>
@@ -43,7 +44,7 @@
                                   name="address_one"
                                   id="addressOne"
                                   class="form-control"
-                                  value="Setra Duta Cemara"
+                                  value="{{ old('address_one') ?? $user->address_one }}"
                                 />
                               </div>
                             </div>
@@ -55,41 +56,41 @@
                                   name="addres_two"
                                   id="addressOne"
                                   class="form-control"
-                                  value="Blok B2 No. 34"
+                                  value="{{ old('addres_two') ?? $user->addres_two }}"
                                 />
                               </div>
                             </div>
 
                        
-            <div class="col-md-4">
-              <div class="form-group">
-                <label for="provinces_id">Provinces</label>
-                <select name="provinces_id" id="provinces_id" class="form-control" v-if="provinces" v-model = 'provinces_id'>
-                <option v-for="province in provinces" :value="province.id">@{{ province.name }}</option>
+                            <div class="col-md-4">
+                              <div class="form-group">
+                                <label for="provinces_id">Provinces</label>
+                                <select name="provinces_id" id="provinces_id" class="form-control" v-if="provinces" v-model = 'provinces_id'>
+                                <option  v-for="province in provinces" :value="province.id ">@{{ province.name }}</option>
 
-                </select>
-                <select v-else="" id="" class="form-control"></select>
-              </div>
-            </div>
-                           <div class="col-md-4">
-              <div class="form-group">
-                <label for="regencies_id">City</label>
-                <select name="regencies_id" id="regencies_id" class="form-control" v-if="regencies" v-model = 'regencies_id'>
-                <option v-for="regency in regencies" :value="regencies.id">@{{ regency.name }}</option>
-               
-                </select>
-              </div>
-            </div>
+                                </select>
+                                <select v-else="" id="" class="form-control"></select>
+                              </div>
+                            </div>
+                            <div class="col-md-4">
+                              <div class="form-group">
+                                <label for="regencies_id">City</label>
+                                <select name="regencies_id" id="regencies_id" class="form-control" v-if="regencies" v-model = 'regencies_id'>
+                                <option v-for="regency in regencies" :value="regencies.id">@{{ regency.name }}</option>
+                              
+                                </select>
+                              </div>
+                            </div>
 
                             <div class="col-md-4">
                               <div class="form-group">
                                 <label for="postalCode">Postal Code</label>
                                 <input
                                   type="text"
-                                  name="postalCode"
+                                  name="zip_code"
                                   id="postalCode"
                                   class="form-control"
-                                  value="2122322"
+                                  value="{{ old('zip_code') ?? $user->zip_code }}"
                                 />
                               </div>
                             </div>
@@ -102,7 +103,7 @@
                                   name="country"
                                   id="country"
                                   class="form-control"
-                                  value="Indonesia"
+                                  value="{{ old('country') ?? $user->country }}"
                                 />
                               </div>
                             </div>
@@ -114,7 +115,7 @@
                                   name="phone"
                                   id="Mobile"
                                   class="form-control"
-                                  value="0812323xxxx"
+                                  value="{{ old('phone_number') ?? $user->phone_number }}"
                                 />
                               </div>
                             </div>
@@ -138,3 +139,43 @@
             </div>
           </div>
 @endsection
+@push('after-script')
+       <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+       <script>
+         var checkout = new Vue ({
+           el : "#checkout",
+           mounted(){
+             AOS.init();
+             this.getProvincesData();
+           },
+           data : {
+            provinces : null,
+            regencies : null,
+            provinces_id : null, 
+            regencies_id : null
+           },
+           methods : {
+             getProvincesData()  {
+               var self = this;
+               axios.get('{{ route('api-provinces') }}') 
+                .then(function(response){
+                  self.provinces = response.data;
+                })
+               },
+               getRegenciesData(){
+                 var self = this;
+                 axios.get('{{ url('api/regencies') }}/' + self.provinces_id )
+                 .then(function(response){
+                   self.regencies = response.data;
+                 })
+               },
+           },
+           watch : {
+            provinces_id: function(val, oldval){
+              this.regencies_id = null;
+              this.getRegenciesData();
+            }
+           }, 
+         })
+       </script>
+@endpush

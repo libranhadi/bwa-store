@@ -24,6 +24,8 @@ class ChangeFieldUsersTable extends Migration
             $table->string("store_name")->nullable()->change();
             $table->integer("categories_id")->nullable()->change();
             $table->integer("store_status")->nullable()->change();
+            $table->string('password')->nullable()->change();
+
         });
     }
 
@@ -45,6 +47,8 @@ class ChangeFieldUsersTable extends Migration
             $table->string("store_name")->nullable("false")->change();
             $table->integer("categories_id")->nullable("false")->change();
             $table->integer("store_status")->nullable("false")->change();
+            $table->string('password')->nullable("false")->change();
+
         });
     }
 }

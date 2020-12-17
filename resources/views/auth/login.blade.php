@@ -59,9 +59,11 @@
                 <button class="btn btn-success w-75 mt-4 btn-block" type="submit"
                   >Sign In To My Account</button
                 >
-                <a href="{{ route('register') }}" class="btn btn-signup w-75 mt-4 btn-block"
-                  >Sign Up</a>
-              </form>
+            </form>
+            <a href="{{ route('login-google') }}" class="btn btn-secondary w-75 mt-4 btn-block"
+              >Login With Google</a>
+            <a href="{{ route('register') }}" class="btn btn-signup w-75 mt-4 btn-block"
+              >Sign Up</a>
             </div>
           </div>
         </div>

@@ -1,7 +1,8 @@
 <?php
 
-use App\Http\Controllers\admin\DashboardController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\admin\DashboardController;
 
 /*
 |--------------------------------------------------------------------------
@@ -81,5 +82,12 @@ Route::prefix('admin')->namespace('Admin')->group(function () {
     Route::resource('user', 'UserController');
     Route::resource( 'product', 'ProductController');
     Route::resource('gallery', 'ProductGalleryController');
+
+
+
+
+    // login socialite
+    Route::get('login/redirect/google', 'Auth\LoginController@redirectToGoogle')->name("login-google");
+    Route::get('login/github/callback', 'Auth\LoginController@handleGoogleCallback')->name("callback-google");
 
 });
