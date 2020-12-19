@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use Laravel\Socialite\Facades\Socialite;
 use App\Http\Controllers\admin\DashboardController;
 
 /*
@@ -20,6 +21,10 @@ Auth::routes();
 // Route::get('/', function () {
 //     return view('welcome');
 // });
+
+//login socialite
+ Route::get('login/redirect/google', 'Auth\SocialiteLoginController@redirectToGoogle')->name("login-google");
+    Route::get('login/google/callback', 'Auth\SocialiteLoginController@handleGoogleCallback')->name("callback-google");
 
 
 Route::get('/', 'HomeController@index')->name('index');
@@ -68,6 +73,9 @@ Route::get('/success', 'CartController@success')->name('success');
 Route::get('/regses', 'Auth\RegisterController@success')->name('register-success');
 
 
+    
+   
+    
 Route::prefix('admin')->namespace('Admin')->group(function () {
     Route::get('dashboard', 'DashboardController@index')->name('admin-dashboard');
 
@@ -86,8 +94,5 @@ Route::prefix('admin')->namespace('Admin')->group(function () {
 
 
 
-    // login socialite
-    Route::get('login/redirect/google', 'Auth\LoginController@redirectToGoogle')->name("login-google");
-    Route::get('login/github/callback', 'Auth\LoginController@handleGoogleCallback')->name("callback-google");
 
 });
