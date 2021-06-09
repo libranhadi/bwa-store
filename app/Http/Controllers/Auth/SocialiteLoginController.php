@@ -30,10 +30,11 @@ class SocialiteLoginController extends Controller
             'name' => $Authuser->name,
             'email' => $Authuser->email,
             'google_id' => $Authuser->id,
-         'password' => md5($Authuser->token),
+          
           ]);
            Auth::login($newUser);
             return redirect('/');
       }
+      // 'password' =>md5($Authuser->token),
     }
 }
